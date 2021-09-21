@@ -1,0 +1,209 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.container1 {
+  display: flex;
+  flex: 5;
+}
+
+.container1 div {
+  margin: 0;
+  padding: 0;
+}
+
+.container2 {
+  background-color: rgb(0, 0, 0);
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+}
+
+.container2 div {
+  margin: 0;
+  padding: 0;
+}
+
+.subbox1 {
+  flex: 6;
+  background-color: teal;
+  display: flex;
+}
+
+.subbox1 div {
+  margin: 0;
+  padding: 0;
+}
+
+.box6,
+.box3 {
+  background-color: rgb(155, 245, 177);
+  flex: 1;
+}
+
+.box4,
+.box2 {
+  background-color: rgb(241, 207, 134);
+  flex: 1;
+  overflow: auto;
+}
+
+.box4,
+.box6 {
+  text-align: center;
+}
+
+.subbox35 {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.subbox35 div {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.box5 {
+  background-color: white;
+  flex: 5;
+  position: relative;
+  text-align: center;
+  overflow: auto;
+  max-height: 1000px;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container0 {
+  flex: 7;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  flex: 1;
+  position: relative;
+  text-align: left;
+  background-color: rgb(153, 152, 255);
+  display: flex;
+}
+
+#list {
+  position: absolute;
+  left: 33%;
+  height: 100%;
+  width: 30%;
+  text-align: center;
+  background-color: rgb(155, 245, 177);
+  list-style-position: inside;
+  font-size: 0.8vw;
+}
+
+.navigation {
+  background-color: rgb(153, 152, 255);
+  font-size: 1.5vw;
+  text-align: center;
+  height: 50%;
+  overflow: auto;
+}
+
+.responsive {
+  float: right;
+  width: 100%;
+  height: auto;
+}
+
+li {
+  list-style-position: inside;
+}
+
+div > h3 {
+  margin-top: 0.5%;
+}
+
+#socialImg {
+  display: block;
+  margin: auto;
+  width: 80%;
+  max-width: 600px;
+  max-height: 300px;
+  height: auto;
+}
+
+.header div {
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  display: flex;
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center;
+  flex: 4;
+  overflow: auto;
+  background-color: crimson;
+  font-size: 0.8vw;
+}
+
+.headerSignBox {
+  flex: 1;
+  height: 100%;
+  background-color: rgb(240, 149, 149);
+  font-size: 0.8vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerSignBoxContent {
+  background-color: white;
+  min-width: 35%;
+  max-width: fit-content;
+  text-align: center;
+}
+
+.footer {
+  position: relative;
+  display: flex;
+  background-color: rgb(153, 152, 255);
+  flex: 1;
+  overflow: auto;
+}
+
+.footerSignBox {
+  flex: 1;
+  height: 100%;
+  background-color: rgb(240, 149, 149);
+  font-size: 1.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerText {
+  display: flex;
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center;
+  flex: 4;
+  background-color: violet;
+  overflow: auto;
+  max-height: 150px;
+}
+
+.footerSignBoxContent {
+  background-color: white;
+  text-align: right;
+  padding-right: 1%;
+  min-width: 35%;
+  max-width: fit-content;
+  font-size: 0.8vw;
+}
