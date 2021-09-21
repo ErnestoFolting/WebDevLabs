@@ -40,7 +40,7 @@
     ]
   },
   "scripts": {
-    "lint": "eslint . --color",
+    "lint": "eslint . --no-error-on-unmatched-pattern",
     "lintcss": "stylelint styles.css",
     "prettiercheck": "prettier . --check"
   },
