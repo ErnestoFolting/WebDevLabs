@@ -27,7 +27,7 @@ const config = {
                         target: 'http://localhost:5001/kpi-web-lab-2/us-central1/sendmail',
                         changeOrigin: true,
                         secure: false,
-                        rewrite: (path)=>path.replace(/api/,'')
+                        rewrite: (path)=>path.replace(/^\/api/,'')
                     }
                 }
             }

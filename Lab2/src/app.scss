@@ -7,12 +7,12 @@
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	--font-mono: 'Fira Mono', monospace;
 	--pure-white: #ffffff;
-	--primary-color: #b9c6d2;
-	--secondary-color: #d0dde9;
+	--primary-color: #eed2d2;
+	--secondary-color: #1acbeb;
 	--tertiary-color: #edf0f8;
 	--accent-color: #ff3e00;
 	--heading-color: rgba(0, 0, 0, 0.7);
-	--text-color: #444444;
+	--text-color: #ff1414;
 	--background-without-opacity: rgba(255, 255, 255, 0.7);
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
@@ -51,7 +51,79 @@ body::before {
 	display: flex;
 	flex-direction: column;
 }
-
+.form{
+	max-width: 550px;
+	margin:0px 0px 50px 0px;
+	color: #000000;
+	padding: 30px 0;
+	background-color: #1acceb6c;
+	border-radius: 10px;
+}
+.form__title{
+	font-size: 40px;
+	font-weight: 700;
+	margin: 0px 0px 30px 0px;
+}
+.form__item{
+	margin: 0px 0px 20px 0px;
+}
+.form__label{
+	font-size: 20px;
+	display:block;
+	margin: 0px 0px 10px 0px;
+}
+.form__input{
+	height:40px;
+	padding: 0px 20px;
+	border-radius: 5px;
+	width:88.5%;
+	font-size: 18px;
+	transition: all 0.5s ease 0s;
+}
+select{
+	width:100%;
+	height:40px;
+	border-radius: 5px;
+	font-size: 18px;
+	padding: 0px 20px;
+}
+textarea {
+	min-height: 120px;
+	resize:vertical;
+	padding:20px;
+}
+.form__button{
+	margin: 20px 0px 0px 0px;
+	width:100%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 60px ;
+	background-color: rgb(248, 116, 198) ;
+	color:white ;
+	font-size:18px ;
+	font-weight: 700;
+	cursor: pointer;
+	border-radius: 20px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	box-shadow: 0 3px 0 #572d40;
+	position:relative;
+	top: 0;
+}
+.form__input:focus{
+	box-shadow: 0 0 10px rgb(248, 116, 198);
+}
+.form *{
+	outline: none;
+}
+.form__button:hover{
+	background-color: #ff0073;
+}
+.form__button:active{
+	top:3px;
+	box-shadow: 0 1px 0 #572d40;
+}
 h1,
 h2,
 p {

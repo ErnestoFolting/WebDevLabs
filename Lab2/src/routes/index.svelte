@@ -4,6 +4,7 @@
 
 <script>
 	import Counter from '$lib/Counter.svelte';
+
 </script>
 
 <svelte:head>
@@ -18,15 +19,38 @@
 				<img src="svelte-welcome.png" alt="Welcome" />
 			</picture>
 		</div>
-
-		to your new<br />SvelteKit app
 	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
+	<div class="form">
+		<form action="#" id="form" class="form__body">
+			<h1 class="form__title">
+				Form sender to mail
+			</h1>
+			<div class="form__item">
+				<label for="formName" class="form__label">Ім'я*</label>
+				<input id="formName" type="text" name ="name" class = "form__input">
+			</div>
+			<div class="form__item">
+				<label for="formEmail" class="form__label">Пошта*</label>
+				<input id="formEmail" type="text" name ="email" class = "form__input">
+			</div>
+			<div class="form__item">
+				<label for="formMessage" class="form__label">Повідомлення*</label>
+				<textarea name="message" id="formMessage" class = "form__input" cols="30" rows="6"></textarea>
+			</div>
+			<div class="form__item">	
+				<div class="form__label">
+					Стать*
+				</div>
+				<select name="age" class="select">
+					<option value="чоловік" selected>Чоловіча</option>
+					<option value="жінка">Жіноча</option>
+				</select>
+				<br>
+				<button type="submit" class="form__button">Відправити</button>
+			</div>
+		</form>
+	</div>
+	
 </section>
 
 <style>
