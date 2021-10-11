@@ -2,23 +2,12 @@
 	export const prerender = true;
 </script>
 
-<script>
-	import Counter from '$lib/Counter.svelte';
-</script>
-
 <svelte:head>
-	<title>Home</title>
+	<title>Sender</title>
 </svelte:head>
 
 <section>
-	<h1>
-		<div class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</div>
-	</h1>
+	
 	<div class="form">
 		<form action="#" id="form" class="form__body">
 			<h1 class="form__title">
@@ -26,21 +15,21 @@
 			</h1>
 			<div class="form__item">
 				<label for="formName" class="form__label">Ім'я*</label>
-				<input id="formName" type="text" name ="name" class = "form__input">
+				<input id="formName" type="text" name ="name" class = "form__input _req">
 			</div>
 			<div class="form__item">
 				<label for="formEmail" class="form__label">Пошта*</label>
-				<input id="formEmail" type="text" name ="email" class = "form__input">
+				<input id="formEmail" type="text" name ="email" class = "form__input _req _email">
 			</div>
 			<div class="form__item">
 				<label for="formMessage" class="form__label">Повідомлення*</label>
-				<textarea name="message" id="formMessage" class = "form__input" cols="30" rows="6"></textarea>
+				<textarea name="message" id="formMessage" class = "form__input _req" cols="30" rows="6"></textarea>
 			</div>
 			<div class="form__item">	
 				<div class="form__label">
 					Стать*
 				</div>
-				<select name="age" class="select">
+				<select name="sex" class="select _req">
 					<option value="чоловік" selected>Чоловіча</option>
 					<option value="жінка">Жіноча</option>
 				</select>
@@ -48,6 +37,7 @@
 				<button type="submit" class="form__button">Відправити</button>
 			</div>
 		</form>
+		<script src="../../build/_app/script.js"></script>
 	</div>
 	
 </section>
