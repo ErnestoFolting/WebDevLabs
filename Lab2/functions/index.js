@@ -1,9 +1,12 @@
 const functions = require("firebase-functions");
+const nodemailer = require("nodemailer");
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-
-exports.sendmail = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
+let transporter = nodemailer.createTransport({
+  host: "smtp.ethereal.email",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: testAccount.user, // generated ethereal user
+    pass: '89djJffK-fk4Kl-Kkfk', // generated ethereal password
+  },
 });
