@@ -14,20 +14,21 @@ const transporter = nodemailer.createTransport({
 
 exports.sendmail = functions.https.onRequest((req, res) => {
   functions.logger.info("Hello logs!", {structuredData: true});
-  if (!Object.keys(req.body.data).length) {
-    return res.status(400).json({code: "400", error: "no data passed to api"});
+  console.log(req.body);
+  console.log(req.body);
+  if (!Object.keys(req.body).length) {
+    return res.status(400).json({code: 400, error: "No message!"});
   }
-
-  const lines = Object.entries(req.body.data)
-      .map(([key, val]) => "<p><b>${key}: </b>${val}</p>")
+  const lines = Object.entries(req.body)
+      .map(([key, val]) => `<p><b>${key}: </b>${val}</p>`)
       .join("\n");
 
-  const html = sanitizeHtml("<h1> Message from form: </h1>${lines}");
+  const html = sanitizeHtml(`<h1> Message from form: </h1>${lines}`);
 
   const mailOptions = {
     from: "Contact form",
-    to: "avakovkakarsen@gmail.com",
-    subject: "Hi, nice form!!!",
+    to: "danilsmy.edu@gmail.com",
+    subject: "Hary, nice form!!!",
     html: html,
   };
 
