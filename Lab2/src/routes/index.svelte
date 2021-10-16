@@ -7,7 +7,14 @@
 </svelte:head>
 
 <section>
-	
+	<div id="responseGood">
+		<h4>Your form was successfuly sent!</h4>
+	</div>
+	<div id="responseBad">
+		<h4>
+			Unfortunately, your form was not sent 
+		</h4>
+	</div>
 	<div class="form">
 		<form action="#" id="form" class="form__body">
 			<h1 class="form__title">

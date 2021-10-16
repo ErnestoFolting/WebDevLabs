@@ -16,7 +16,9 @@ exports.sendmail = functions.https.onRequest((req, res) => {
   functions.logger.info("Hello logs!", {structuredData: true});
   console.log(req.body);
   console.log(Object.keys(req.body).length);
-
+  if (Object.keys(req.body).length === 0) {
+    return res.status(400).json({code: 400, error: "No message!"});
+  }
   const lines = Object.entries(req.body)
       .map(([key, val]) => `<p><b>${key}: </b>${val}</p>`)
       .join("\n");
@@ -24,15 +26,16 @@ exports.sendmail = functions.https.onRequest((req, res) => {
   const mailOptions = {
     from: "Contact form",
     to: "danilsmy.edu@gmail.com",
-    subject: "Hary, nice form!!!",
+    subject: "Hey, nice form!!!",
     html: myHtml,
   };
 
   transporter.sendMail(mailOptions, (error) => {
     if (error) {
       console.error("Error sending mail", error.message);
-      return res.status(500).json({code: "500", eror: error.message});
+      return res.status(500).json({code: "500", error: error.message});
     } else {
+      console.log("check status");
       return res.status(200).json({data: "ok"});
     }
   });

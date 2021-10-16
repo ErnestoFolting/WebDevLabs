@@ -95,6 +95,24 @@ body::before {
 	opacity: 1;
 	visibility: visible;
 }
+#responseGood{
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.5s ease 0s;
+}
+#responseGood._sending{
+	opacity: 1;
+	visibility: visible;
+}
+#responseBad{
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.5s ease 0s;
+}
+#responseBad._sending{
+	opacity: 1;
+	visibility: visible;
+}
 .form__input{
 	height:40px;
 	padding: 0px 20px;
