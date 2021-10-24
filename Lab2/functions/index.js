@@ -2,6 +2,7 @@ const functions = require("firebase-functions");
 const nodemailer = require("nodemailer");
 const sanitizeHtml = require("sanitize-html");
 
+
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
@@ -16,6 +17,7 @@ exports.sendmail = functions.https.onRequest((req, res) => {
   functions.logger.info("Hello logs!", {structuredData: true});
   console.log(req.body);
   console.log(Object.keys(req.body).length);
+  console.log(req.headers.origin);
   if (Object.keys(req.body).length === 0) {
     return res.status(400).json({code: 400, error: "No message!"});
   }

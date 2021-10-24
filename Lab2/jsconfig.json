@@ -6,5 +6,5 @@
 			"$lib/*": ["src/lib/*"]
 		}
 	},
-	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte", "build/_app/script.js"]
+	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte", "src/routes/script.jsript.js"]
 }
