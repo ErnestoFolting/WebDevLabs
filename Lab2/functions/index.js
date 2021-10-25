@@ -13,11 +13,35 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const rateLimit = {
+  callLimitForOneIp: 7,
+  timeInSeconds: 15,
+  ipCache: new Map(),
+};
+
+
 exports.sendmail = functions.https.onRequest((req, res) => {
   functions.logger.info("Hello logs!", {structuredData: true});
   console.log(req.body);
   console.log(Object.keys(req.body).length);
-  console.log(req.headers.origin);
+  const reqIp = req.headers["fastly-client-ip"];
+  let ipUser = {};
+  const currentDate = new Date();
+  if (rateLimit.ipCache.get(reqIp)===undefined) {
+    rateLimit.ipCache.set(reqIp, {reqCount: 1, time: currentDate});
+  } else {
+    ipUser = rateLimit.ipCache.get(reqIp);
+    ipUser.reqCount+=1;
+    rateLimit.ipCache.set(reqIp, ipUser);
+    console.log("counts: " + ipUser.reqCount);
+    if ((ipUser.reqCount>rateLimit.callLimitForOneIp) ||
+      (currentDate - ipUser.time <= rateLimit.timeInSeconds *1000)) {
+      return res.status(429).json({code: "429", error: "rate limit"});
+    }
+  }
+  ipUser = rateLimit.ipCache.get(reqIp);
+  ipUser.time = new Date();
+  rateLimit.ipCache.set(reqIp, ipUser);
   if (Object.keys(req.body).length === 0) {
     return res.status(400).json({code: 400, error: "No message!"});
   }
