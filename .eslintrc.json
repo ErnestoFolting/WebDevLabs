@@ -16,5 +16,11 @@
     "semi": ["error", "always"],
     "quotes": ["error", "double"]
   },
-  "plugins": ["@nodeart", "sonarjs"]
+  "plugins": ["@nodeart", "sonarjs","svelte3"],
+  "overrides": [
+    {
+      "files": "*.svelte",
+      "processor": "svelte3/svelte3"
+    }
+  ]
 }

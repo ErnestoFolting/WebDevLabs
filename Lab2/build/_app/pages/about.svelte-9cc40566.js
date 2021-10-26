@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import{S as F,i as G,s as N,k as _,e as l,t as o,P as Q,d as a,n as m,c as r,a as d,g as s,b as I,f as V,I as t,J as L}from"../chunks/vendor-9696d423.js";const U=!0,W=!1;function X(z){let h,e,f,b,E,p,S,u,k,x,A,g,J,P,y,K,O,c,D,v,H,q;return{c(){h=_(),e=l("div"),f=l("h1"),b=o("About this app"),E=_(),p=l("p"),S=o("This is a "),u=l("a"),k=o("SvelteKit"),x=o(` app. You can make your own by typing the
 		following into your command line and following the prompts:`),A=_(),g=l("pre"),J=o("npm init svelte@next"),P=_(),y=l("p"),K=o(`The page you're looking at is purely static HTML, with no client-side interactivity needed.
 		Because of that, we don't need to load any JavaScript. Try viewing the page's source, or opening
