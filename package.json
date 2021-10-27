@@ -43,8 +43,8 @@
     "lint:fix": "eslint **/*.js  --fix --ignore-path .gitignore",
     "lintcss": "stylelint **/*.css --ignore-path .gitignore",
     "lintcss:fix": "stylelint **/*.css  --fix --ignore-path .gitignore",
-    "prettiercheck": "prettier **/*.html --check .",
-    "prettier:fix": "prettier **/*.html --write .",
+    "prettiercheck": "prettier **/*.html --check . --ignore-path .gitignore",
+    "prettier:fix": "prettier **/*.html --write . --ignore-path .gitignore",
     "start": "lite-server"
   },
   "author": "",

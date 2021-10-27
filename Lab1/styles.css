@@ -4,6 +4,10 @@
   font-size: 14px;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 header div {
   margin: 0;
   padding: 0;
@@ -52,7 +56,7 @@ header div {
 .box2 {
   background-color: rgb(241, 207, 134);
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .box4,
@@ -77,7 +81,7 @@ header div {
   flex: 5;
   position: relative;
   text-align: center;
-  overflow: auto;
+  overflow: hidden;
   max-height: 1000px;
 }
 
@@ -118,7 +122,7 @@ header {
   font-size: 1.5vw;
   text-align: center;
   height: 50%;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .responsive {
@@ -149,7 +153,7 @@ div > h3 {
   justify-content: center; /* Центрирование по горизонтали */
   align-items: center;
   flex: 4;
-  overflow: auto;
+  overflow: hidden;
   background-color: crimson;
   font-size: 0.8vw;
 }
@@ -176,7 +180,7 @@ footer {
   display: flex;
   background-color: rgb(153, 152, 255);
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .footerSignBox {
@@ -195,7 +199,7 @@ footer {
   align-items: center;
   flex: 4;
   background-color: violet;
-  overflow: auto;
+  overflow: hidden;
   max-height: 150px;
 }
 
