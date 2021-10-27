@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-  
-  },
+  "dependencies": {},
   "devDependencies": {
     "@nodeart/eslint-plugin": "^1.3.0",
     "eslint": "^7.32.0",
@@ -41,9 +39,12 @@
     ]
   },
   "scripts": {
-    "lint": "eslint **/*.js --no-error-on-unmatched-pattern",
-    "lintcss": "stylelint **/*.css",
-    "prettiercheck": "prettier **/*.html --check",
+    "lint": "eslint **/*.js --no-error-on-unmatched-pattern --ignore-path .gitignore",
+    "lint:fix": "eslint **/*.js  --fix --ignore-path .gitignore",
+    "lintcss": "stylelint **/*.css --ignore-path .gitignore",
+    "lintcss:fix": "stylelint **/*.css  --fix --ignore-path .gitignore",
+    "prettiercheck": "prettier **/*.html --check .",
+    "prettier:fix": "prettier **/*.html --write .",
     "start": "lite-server"
   },
   "author": "",
