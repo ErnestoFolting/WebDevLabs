@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "-": "0.0.1"
+  
   },
   "devDependencies": {
     "@nodeart/eslint-plugin": "^1.3.0",

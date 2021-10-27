@@ -89,7 +89,7 @@
   flex-direction: column;
 }
 
-.header {
+header {
   flex: 1;
   position: relative;
   text-align: left;
@@ -139,7 +139,7 @@ div > h3 {
   height: auto;
 }
 
-.header div {
+header div {
   margin: 0;
   padding: 0;
 }
@@ -171,7 +171,7 @@ div > h3 {
   text-align: center;
 }
 
-.footer {
+footer {
   position: relative;
   display: flex;
   background-color: rgb(153, 152, 255);
