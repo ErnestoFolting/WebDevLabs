@@ -16,6 +16,7 @@
     "eslint-plugin-sonarjs": "^0.10.0",
     "husky": "^4.3.8",
     "lint-staged": "^11.1.2",
+    "lite-server": "^2.6.1",
     "prettier": "2.4.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0"
@@ -42,7 +43,8 @@
   "scripts": {
     "lint": "eslint **/*.js --no-error-on-unmatched-pattern",
     "lintcss": "stylelint **/*.css",
-    "prettiercheck": "prettier **/*.html --check"
+    "prettiercheck": "prettier **/*.html --check",
+    "start": "lite-server"
   },
   "author": "",
   "license": "ISC"
