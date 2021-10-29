@@ -19,7 +19,7 @@ import {
 } from '../chunks/vendor-9696d423.js';
 const U = !0,
 	W = !1;
-function X(z) {
+function X() {
 	let h, e, f, b, E, p, S, u, k, x, A, g, J, P, y, K, O, c, D, v, H, q;
 	return {
 		c() {

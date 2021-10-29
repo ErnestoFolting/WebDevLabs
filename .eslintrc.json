@@ -8,6 +8,7 @@
     "plugin:@nodeart/base",
     "plugin:sonarjs/recommended"
   ],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 12,
     "sourceType": "module"
@@ -16,11 +17,11 @@
     "semi": ["error", "always"],
     "quotes": ["error", "double"]
   },
-  "plugins": ["@nodeart", "sonarjs","svelte3"],
+  "plugins": ["@nodeart", "sonarjs"],
   "overrides": [
     {
       "files": "*.svelte",
-      "processor": "svelte3/svelte3"
+      "parser": "svelte-eslint-parser"
     }
   ]
 }

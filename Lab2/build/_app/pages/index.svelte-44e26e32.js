@@ -17,7 +17,7 @@ import {
 	I as e,
 	J as ve
 } from '../chunks/vendor-9696d423.js';
-function Ge(Ve) {
+function Ge() {
 	let q,
 		m,
 		V,
