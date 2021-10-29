@@ -8,4 +8,5 @@ jobs:
         with:
           cache: npm
           node-version: 14
+          cache-dependency-path: /package-lock.json
       - run: npm ci && npm run lint && npm run lintcss && npm run prettiercheck
