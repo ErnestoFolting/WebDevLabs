@@ -12,11 +12,11 @@
       "**/.*",
       "**/node_modules/**"
     ],
-	"rewrites": [
-		{
-			"source": "/api/sendMail",
-			"function": "sendMail"
-		}
-	]
+    "rewrites": [
+      {
+        "source": "/api/sendmail",
+        "function": "sendmail"
+      }
+    ]
   }
 }
