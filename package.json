@@ -11,15 +11,15 @@
 		"format:fix": "prettier --write ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^1.0.0-next.20",
-		"@sveltejs/kit": "next",
+		"@sveltejs/adapter-static": "^1.0.0-next.21",
+		"@sveltejs/kit": "^1.0.0-next.192",
 		"eslint": "^7.32.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^3.2.1",
 		"prettier": "^2.4.1",
 		"prettier-plugin-svelte": "^2.4.0",
-		"sass": "^1.42.1",
-		"svelte": "^3.34.0",
+		"sass": "^1.43.4",
+		"svelte": "^3.44.0",
 		"svelte-preprocess": "^4.9.5"
 	},
 	"type": "module",
@@ -28,7 +28,7 @@
 		"@lukeed/uuid": "^2.0.0",
 		"body-parser": "^1.19.0",
 		"cookie": "^0.4.1",
-		"firebase-tools": "^9.20.0",
+		"firebase-tools": "^9.21.0",
 		"request-ip": "^2.1.3"
 	}
 }
