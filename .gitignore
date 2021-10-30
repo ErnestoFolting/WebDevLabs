@@ -1,6 +1,6 @@
 /node_modules
 /.svelte-kit
-/.idea
+/.vscode
 .firebase
 .DS_Store
 node_modules
