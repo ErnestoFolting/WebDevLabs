@@ -26,9 +26,8 @@ exports.sendmail = functions.https.onRequest((req, res) => {
     return res.status(500).json({code: "500",
       error: "Mail credentials are undefined"});
   }
-  functions.logger.info("Hello logs!", {structuredData: true});
-  console.log(req.body);
-  console.log(Object.keys(req.body).length);
+  functions.logger.log(req.body);
+  functions.logger.log(Object.keys(req.body).length);
   const reqIp = req.headers["fastly-client-ip"];
   let ipUser = {};
   const currentDate = new Date();
@@ -36,8 +35,8 @@ exports.sendmail = functions.https.onRequest((req, res) => {
     rateLimit.ipCache.set(reqIp, {reqCount: 1, time: currentDate});
   } else {
     ipUser = rateLimit.ipCache.get(reqIp);
-    console.log("counts: " + ipUser.reqCount);
-    console.log("time:"+ (currentDate - ipUser.time)/1000);
+    functions.logger.log("counts: " + ipUser.reqCount);
+    functions.logger.log("time:"+ (currentDate - ipUser.time)/1000);
     if (
       ipUser.reqCount + 1 > rateLimit.callLimitForOneIp ||
 		currentDate - ipUser.time <= rateLimit.timeInSeconds * 1000
@@ -64,10 +63,10 @@ exports.sendmail = functions.https.onRequest((req, res) => {
 
   transporter.sendMail(mailOptions, (error) => {
     if (error) {
-      console.error("Error sending mail", error.message);
+      functions.logger.error("Error sending mail", error.message);
       return res.status(500).json({code: "500", error: error.message});
     } else {
-      console.log("check status");
+      functions.logger.log("check status");
       return res.status(200).json({data: "ok"});
     }
   });
