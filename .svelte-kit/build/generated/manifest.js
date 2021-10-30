@@ -15,14 +15,12 @@ export const routes = [
 	// src/routes/about.svelte
 	[/^\/about\/?$/, [c[0], c[3]], [c[1]]],
 
-	// src/routes/todos/index.json.js
-	[/^\/todos\.json$/],
+	,
 
 	// src/routes/todos/index.svelte
 	[/^\/todos\/?$/, [c[0], c[4]], [c[1]]],
 
-	// src/routes/todos/[uid].json.js
-	[/^\/todos\/([^/]+?)\.json$/]
+	
 ];
 
 // we import the root layout/error components eagerly, so that
