@@ -30,18 +30,17 @@ exports.sendmail = functions.https.onRequest((req, res) => {
     rateLimit.ipCache.set(reqIp, {reqCount: 1, time: currentDate});
   } else {
     ipUser = rateLimit.ipCache.get(reqIp);
-    ipUser.reqCount += 1;
-    rateLimit.ipCache.set(reqIp, ipUser);
     console.log("counts: " + ipUser.reqCount);
     console.log("time:"+ (currentDate - ipUser.time)/1000);
     if (
-      ipUser.reqCount > rateLimit.callLimitForOneIp ||
+      ipUser.reqCount + 1 > rateLimit.callLimitForOneIp ||
 		currentDate - ipUser.time <= rateLimit.timeInSeconds * 1000
     ) {
       return res.status(429).json({code: "429", error: "rate limit"});
     }
   }
   ipUser = rateLimit.ipCache.get(reqIp);
+  ipUser.reqCount += 1;
   ipUser.time = new Date();
   rateLimit.ipCache.set(reqIp, ipUser);
   if (Object.keys(req.body).length === 0) {
