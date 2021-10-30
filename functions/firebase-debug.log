@@ -619,3 +619,7 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
 [info] i  functions: Finished "us-central1-sendmail" in ~1s {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendmail"},"message":"Finished \"us-central1-sendmail\" in ~1s"}}
 [debug] [2021-10-30T13:17:04.079Z] [worker-us-central1-sendmail-9e2d8ec2-1af4-41ff-a965-d960745dcdd0]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-sendmail-9e2d8ec2-1af4-41ff-a965-d960745dcdd0]: IDLE"}}
 [debug] [2021-10-30T13:17:04.079Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2021-10-30T14:31:48.925Z] [worker-us-central1-sendmail-9e2d8ec2-1af4-41ff-a965-d960745dcdd0]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-sendmail-9e2d8ec2-1af4-41ff-a965-d960745dcdd0]: exited"}}
+[debug] [2021-10-30T14:31:48.930Z] [worker-us-central1-sendmail-9e2d8ec2-1af4-41ff-a965-d960745dcdd0]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-sendmail-9e2d8ec2-1af4-41ff-a965-d960745dcdd0]: FINISHED"}}
+[debug] [2021-10-30T14:31:48.934Z] [worker-~diagnostic~-358d2e8d-af85-481a-9fe5-869e79e7794e]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-358d2e8d-af85-481a-9fe5-869e79e7794e]: exited"}}
+[debug] [2021-10-30T14:31:48.934Z] [worker-~diagnostic~-358d2e8d-af85-481a-9fe5-869e79e7794e]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-358d2e8d-af85-481a-9fe5-869e79e7794e]: FINISHED"}}
