@@ -110,11 +110,6 @@ header div {
   flex-direction: column;
 }
 
-.container0 {
-  flex: 7;
-  display: flex;
-  flex-direction: column;
-}
 
 header {
   flex: 1;
@@ -175,19 +170,15 @@ div > h3 {
   justify-content: center;
 }
 
-.headerSignBoxContent {
-  background-color: var(--clr-signboxcontent);
-  min-width: 35%;
-  max-width: fit-content;
-  text-align: center;
-}
-
 footer {
   position: relative;
   display: flex;
   background-color: --clr-footer;
   flex: 1;
-  overflow: hidden;
+}
+
+footer h1, header h1 {
+  background-color:var(--clr-signboxcontent);
 }
 
 .footerSignBox {
@@ -210,11 +201,3 @@ footer {
   max-height: 150px;
 }
 
-.footerSignBoxContent {
-  background-color: var(--clr-signboxcontent);
-  text-align: right;
-  padding-right: 1%;
-  min-width: 35%;
-  max-width: fit-content;
-  font-size: 0.8vw;
-}
