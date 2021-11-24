@@ -1,13 +1,12 @@
 :root {
   --fs-base: 14px;
-  --clr-footer: rgb(90, 253, 104);
+  --clr-footer: rgb(154, 206, 106);
   --clr-footer-text: rgb(37, 173, 173);
   --clr-box3-box6: rgb(117, 43, 236);
   --clr-container2: rgb(0, 0, 0);
   --clr-box4-box2: rgb(241, 207, 134);
   --clr-box5: rgb(108, 193, 214);
   --clr-header-back: rgb(153, 152, 255);
-  --clr-lst: rgb(155, 245, 177);
   --clr-nav: rgb(142, 220, 224);
   --clr-header-link: rgb(241, 121, 145);
   --clr-signboxcontent: rgb(255, 255, 255);
@@ -123,17 +122,6 @@ header {
   text-align: left;
   background-color: var(--clr-header-back);
   display: flex;
-}
-
-#list {
-  position: absolute;
-  left: 33%;
-  height: 100%;
-  width: 30%;
-  text-align: center;
-  background-color: var(--clr-lst);
-  list-style-position: inside;
-  font-size: 0.8vw;
 }
 
 .navigation {
