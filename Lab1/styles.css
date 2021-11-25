@@ -110,7 +110,6 @@ header div {
   flex-direction: column;
 }
 
-
 header {
   flex: 1;
   position: relative;
@@ -177,8 +176,9 @@ footer {
   flex: 1;
 }
 
-footer h1, header h1 {
-  background-color:var(--clr-signboxcontent);
+footer h1,
+header h1 {
+  background-color: var(--clr-signboxcontent);
 }
 
 .footerSignBox {
@@ -200,4 +200,3 @@ footer h1, header h1 {
   overflow: hidden;
   max-height: 150px;
 }
-
