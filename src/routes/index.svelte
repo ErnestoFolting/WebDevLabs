@@ -1,6 +1,6 @@
 <script>
 import { now } from "svelte/internal";
-
+import {onMount} from "svelte";
 
 
 async function fetchGraphQL(operationsDoc, operationName, variables) {
@@ -70,19 +70,20 @@ async function startExecuteMyMutation() {
     // handle those errors like a pro
     console.error(errors);
   }
-  console.log("Test");
-  // do something great with this precious data
-  console.log(data);
+  await startFetchMyQuery();
 }
 
 async function startFetchMyQuery() {
   const { errors, data } = await fetchMyQuery();
 
+  errorOccured = false;
   if (errors) {
     // handle those errors like a pro
     console.error(errors);
+    error = errors;
+    errorOccured = true;
   }
-
+  notes = data.notes;
   // do something great with this precious data
   console.log(data);
 }
@@ -94,17 +95,25 @@ async function startExecuteAddNote(author, date, text) {
     // handle those errors like a pro
     console.error(errors);
   }
-
+  await startFetchMyQuery();
   // do something great with this precious data
   console.log(data);
 }
 
-function addNode(){
+function addNote(){
 	startExecuteAddNote("Petro",date,"note3")
 }
 
-startFetchMyQuery();
+let errorOccured =false;
+let error;
+let notes;
+
+onMount(async()=>{
+    await startFetchMyQuery()
+  })
+
 let date = new Date(Date.now());
+
 
 </script>
 
@@ -114,30 +123,35 @@ let date = new Date(Date.now());
 <section>
 	<div class = "buttons">
 		<button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
-		<button class = "buttonAddNote"  on:click =  {addNode}>Add note</button>
+		<button class = "buttonAddNote"  on:click =  {addNote}>Add note</button>
 	</div>
 	
-	<h1>To-Dos list:</h1>
+	<h1>Notes list:</h1>
 
-	<div class = "notes">
-	{#await fetchMyQuery()}
-		<p>...waiting</p>
-	{:then data}
-		<p>The number is {data.data.notes.length}</p>
-		{#each data.data.notes as {author,date,text}}
-		<p>
-			{author} - {date} - {text}
-		</p>
-	{/each}
-	{:catch error}
-		<p style="color: red">{error.message}</p>
-	{/await}
 	
-	</div>
+	{#if !notes}
+		<p>...waiting</p>
+	{:else if errorOccured === false}
+		<p>The number of notes: {notes.length}</p>
+    <div class = "notes">
+		{#each notes as {author,date,text}}
+		<div class = "currentNote">
+			{author} - {date} - {text}
+    </div>
+	{/each}
+    </div>
+	{:else}
+		<p style="color: red">{error}</p>
+	{/if}
+	
+
 
 </section>
 
 <style>
+  .currentNote{
+    background-color: rgb(255, 255, 255);
+  }
 	.buttonAddNote{
 		background-color: rgb(27, 185, 27);
 		border:0px;
