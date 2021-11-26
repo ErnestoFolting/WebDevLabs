@@ -17,12 +17,17 @@ async function fetchGraphQL(operationsDoc, operationName, variables) {
 }
 
 const operationsDoc = `
-  query MyQuery {
+query MyQuery {
     notes(order_by: {id: desc_nulls_first}) {
       author
       date
       text
       id
+    }
+  }
+mutation MyMutation {
+    delete_notes(where: {}) {
+      affected_rows
     }
   }
 `;
@@ -33,6 +38,26 @@ function fetchMyQuery() {
     "MyQuery",
     {}
   );
+}
+
+function executeMyMutation() {
+  return fetchGraphQL(
+    operationsDoc,
+    "MyMutation",
+    {}
+  );
+}
+
+async function startExecuteMyMutation() {
+  const { errors, data } = await executeMyMutation();
+
+  if (errors) {
+    // handle those errors like a pro
+    console.error(errors);
+  }
+  console.log("Test");
+  // do something great with this precious data
+  console.log(data);
 }
 
 async function startFetchMyQuery() {
@@ -55,7 +80,7 @@ startFetchMyQuery();
 	<title>To-Dos</title>
 </svelte:head>
 <section>
-
+	<button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
 	<h1>To-Dos list:</h1>
 
 	<div class = "notes">
@@ -77,6 +102,18 @@ startFetchMyQuery();
 </section>
 
 <style>
+	.buttonDeleteAll{
+		background-color: red;
+		border:0px;
+		width: 7em;
+		height: 3em;
+		text-align: center;
+		display:inline-block;
+		border-radius: 15px;
+	}
+	.buttonDeleteAll:hover{
+		background-color:brown
+	}
 	section{
 		display: flex;
 		flex-direction: column;
