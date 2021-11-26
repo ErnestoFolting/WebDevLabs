@@ -154,6 +154,10 @@ let date = new Date(Date.now());
     <div class="wrapper">
       <div class = "controlPanel">
         <h1>Notes list:</h1>
+        <form class = "inputForm">
+          <input type="text" name = "authorInput" placeholder="Input your name">
+          <textarea name="text" class="textInput" maxlength="96" placeholder="Input your note"></textarea>
+        </form>
         <div class = "buttons">
           <button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
           <button class = "buttonAddNote"  on:click =  {addNote}>Add note</button>
@@ -184,6 +188,14 @@ let date = new Date(Date.now());
 </body>
 
 <style>
+  textarea{
+    resize: none;
+  }
+  .inputForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   body {
     max-width: 100%;
     overflow-x: hidden;
@@ -196,7 +208,7 @@ let date = new Date(Date.now());
     flex-direction: column;
   }
   .controlPanel{
-    min-height: 300px;
+    min-height: 320px;
     flex:1;
   }
   .notes{
