@@ -1,4 +1,7 @@
 <script>
+import { now } from "svelte/internal";
+
+
 
 async function fetchGraphQL(operationsDoc, operationName, variables) {
   const result = await fetch(
@@ -30,6 +33,11 @@ mutation MyMutation {
       affected_rows
     }
   }
+  mutation AddNote($author: String = "", $date: date = "", $text: String = "") {
+    insert_notes(objects: {date: $date, author: $author, text: $text}) {
+      affected_rows
+    }
+  }
 `;
 
 function fetchMyQuery() {
@@ -45,6 +53,13 @@ function executeMyMutation() {
     operationsDoc,
     "MyMutation",
     {}
+  );
+}
+function executeAddNote(author, date, text) {
+  return fetchGraphQL(
+    operationsDoc,
+    "AddNote",
+    {"author": author, "date": date, "text": text}
   );
 }
 
@@ -72,7 +87,20 @@ async function startFetchMyQuery() {
   console.log(data);
 }
 
+async function startExecuteAddNote(author, date, text) {
+  const { errors, data } = await executeAddNote(author, date, text);
+
+  if (errors) {
+    // handle those errors like a pro
+    console.error(errors);
+  }
+
+  // do something great with this precious data
+  console.log(data);
+}
+
 startFetchMyQuery();
+let date = new Date(Date.now());
 
 </script>
 
@@ -80,7 +108,11 @@ startFetchMyQuery();
 	<title>To-Dos</title>
 </svelte:head>
 <section>
-	<button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
+	<div class = "buttons">
+		<button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
+		<button class = "buttonAddNote"  on:click =  {startExecuteAddNote("Petro",date,"note3")}>Add note</button>
+	</div>
+	
 	<h1>To-Dos list:</h1>
 
 	<div class = "notes">
@@ -102,6 +134,15 @@ startFetchMyQuery();
 </section>
 
 <style>
+	.buttonAddNote{
+		background-color: rgb(27, 185, 27);
+		border:0px;
+		width: 7em;
+		height: 3em;
+		text-align: center;
+		display:inline-block;
+		border-radius: 15px;
+	}
 	.buttonDeleteAll{
 		background-color: red;
 		border:0px;
@@ -111,8 +152,8 @@ startFetchMyQuery();
 		display:inline-block;
 		border-radius: 15px;
 	}
-	.buttonDeleteAll:hover{
-		background-color:brown
+	.buttonDeleteAll:hover, .buttonAddNote:hover{
+		background-color:rgb(190, 179, 179)
 	}
 	section{
 		display: flex;
