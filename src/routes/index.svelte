@@ -127,7 +127,17 @@ async function startExecuteAddNote(author, date, text) {
 }
 
 function addNote(){
-	startExecuteAddNote("Petro",date,"I am fine, thank you.")
+	
+  let name = document.getElementById("nameInput").value;
+  let text = document.getElementById("textInput").value;
+  let form = document.getElementById("form");
+  if(name.length >= 3 && text.length >= 3){
+    startExecuteAddNote(name,date,text);
+    form.reset();
+  }else{
+    alert("Input data into poles! At least 3 symbols.");
+    form.reset();
+  }
 }
 
 function deleteCurrent(event){
@@ -154,9 +164,9 @@ let date = new Date(Date.now());
     <div class="wrapper">
       <div class = "controlPanel">
         <h1>Notes list:</h1>
-        <form class = "inputForm">
-          <input type="text" name = "authorInput" placeholder="Input your name">
-          <textarea name="text" class="textInput" maxlength="96" placeholder="Input your note"></textarea>
+        <form id = "form" class = "inputForm">
+          <input type="text" id = "nameInput" name = "authorInput" maxlength="25" placeholder="Input your name">
+          <textarea name="text"  id = "textInput" class="textInput" maxlength="96" placeholder="Input your note"></textarea>
         </form>
         <div class = "buttons">
           <button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
