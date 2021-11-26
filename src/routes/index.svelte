@@ -147,42 +147,64 @@ let date = new Date(Date.now());
 
 
 </script>
-
 <svelte:head>
-	<title>To-Dos</title>
-</svelte:head>
-<section>
-  <h1>Notes list:</h1>
-	<div class = "buttons">
-		<button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
-		<button class = "buttonAddNote"  on:click =  {addNote}>Add note</button>
-	</div>
-	
-	{#if !notes}
-		<p>...waiting</p>
-	{:else if errorOccured === false}
-		<h3>The number of notes: {notes.length}</h3>
-    <ul>
-      {#each notes as {author,date,text,id}}
-      <li>
-        <p>
-          <strong>{author}</strong>  <br> <strong>Text:</strong> {text} <br>   {date}  
-          <br>
-          <button class = "deleteCurrent" id = "{id}" on:click={event => deleteCurrent(event)}> X </button>
-        </p>
-      </li>
-    {/each}
-    </ul>
-		
-	{:else}
-		<p style="color: red">{error}</p>
-	{/if}
-	
-
-
-</section>
+    <title>Notes</title>
+  </svelte:head>
+<body>
+    <div class="wrapper">
+      <div class = "controlPanel">
+        <h1>Notes list:</h1>
+        <div class = "buttons">
+          <button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
+          <button class = "buttonAddNote"  on:click =  {addNote}>Add note</button>
+        </div>
+      </div>
+      <div class = "notes">
+        {#if !notes}
+        <p>...waiting</p>
+      {:else if errorOccured === false}
+        <h3>The number of notes: {notes.length}</h3>
+        <ul>
+          {#each notes as {author,date,text,id}}
+          <li>
+            <p>
+              <strong>{author}</strong>  <br> <strong>Text:</strong> {text} <br>   {date}  
+              <br>
+              <button class = "deleteCurrent" id = "{id}" on:click={event => deleteCurrent(event)}> X </button>
+            </p>
+          </li>
+        {/each}
+        </ul>
+        
+      {:else}
+        <p style="color: red">{error}</p>
+      {/if}
+      </div>
+    </div>  
+</body>
 
 <style>
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .wrapper{
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .controlPanel{
+    min-height: 300px;
+    flex:1;
+  }
+  .notes{
+    flex:3;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
   ul{
     padding-left: 0;
   }
@@ -196,18 +218,17 @@ let date = new Date(Date.now());
     border-radius: 10px;
   }
   li p:hover{
-    background-color: rgb(186, 222, 224)
+    background-color: rgba(104, 107, 107, 0.425)
   }
   li {
     list-style-type: none; 
    }
   li p{
     position:relative;
-    background-color:#b0e9f1;
-    min-height: 40px;
+    background-color:#8ddde9;
+    min-height: 50px;
     border-radius: 15px;
     text-align: center;
-    transition: 2s;
   }
 	.buttonAddNote{
     cursor:pointer;
@@ -231,13 +252,6 @@ let date = new Date(Date.now());
 	}
 	.buttonDeleteAll:hover, .buttonAddNote:hover{
 		background-color:rgb(190, 179, 179)
-	}
-	section{
-		display: flex;
-		flex-direction: column;
-		justify-content:center;
-		align-items:center;
-		flex: 1;
 	}
 	h1 {
 		width: 100%;
