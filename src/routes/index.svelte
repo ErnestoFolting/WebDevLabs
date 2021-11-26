@@ -99,6 +99,10 @@ async function startExecuteAddNote(author, date, text) {
   console.log(data);
 }
 
+function addNode(){
+	startExecuteAddNote("Petro",date,"note3")
+}
+
 startFetchMyQuery();
 let date = new Date(Date.now());
 
@@ -110,7 +114,7 @@ let date = new Date(Date.now());
 <section>
 	<div class = "buttons">
 		<button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
-		<button class = "buttonAddNote"  on:click =  {startExecuteAddNote("Petro",date,"note3")}>Add note</button>
+		<button class = "buttonAddNote"  on:click =  {addNode}>Add note</button>
 	</div>
 	
 	<h1>To-Dos list:</h1>
