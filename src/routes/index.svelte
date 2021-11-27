@@ -1,7 +1,51 @@
+<script context="module">
+  export const ssr = false;
+</script>
 <script>
 import { now } from "svelte/internal";
 import {onMount} from "svelte";
 
+import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core';
+  import { createClient as createWSClient } from 'graphql-ws';
+  import { setClient, operationStore, subscription } from '@urql/svelte';
+
+  const wsClient = createWSClient({
+    url: 'wss://kpilab3.herokuapp.com/v1/graphql',
+    reconnect: true
+  });
+
+  const client = createClient({
+    url: 'https://kpilab3.herokuapp.com/v1/graphql',
+    exchanges: [
+      ...defaultExchanges,
+      subscriptionExchange({
+        forwardSubscription: (operation) => ({
+          subscribe: (sink) => ({
+            unsubscribe: wsClient.subscribe(operation, sink),
+          }),
+        }),
+      }),
+    ],
+  });
+
+  const messages = operationStore(`
+    subscription MySubscription {
+    notes {
+      author
+      date
+      id
+      text
+    }
+  }
+  `);
+  setClient(client);
+  const handleSubscription = (messages = [], data) => {
+    console.log([...data.notes]);
+    notes=data.notes;
+    return [data.notes, ...messages];
+  };
+
+  subscription(messages, handleSubscription);
 
 async function fetchGraphQL(operationsDoc, operationName, variables) {
   const result = await fetch(
@@ -84,7 +128,6 @@ async function startExecuteDeleteCurrentNote(_eq) {
     console.error(errors);
   }
 
-  await startFetchMyQuery();
   // do something great with this precious data
   console.log(data);
 }
@@ -96,7 +139,6 @@ async function startExecuteMyMutation() {
     // handle those errors like a pro
     console.error(errors);
   }
-  await startFetchMyQuery();
 }
 
 async function startFetchMyQuery() {
@@ -148,13 +190,11 @@ function deleteCurrent(event){
 let errorOccured =false;
 let error;
 let notes;
+let date = new Date(Date.now());
 
 onMount(async()=>{
     await startFetchMyQuery()
-  })
-
-let date = new Date(Date.now());
-
+})
 
 </script>
 <svelte:head>
