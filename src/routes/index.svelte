@@ -163,7 +163,6 @@ async function startExecuteAddNote(author, date, text) {
     // handle those errors like a pro
     console.error(errors);
   }
-  await startFetchMyQuery();
   // do something great with this precious data
   console.log(data);
 }
