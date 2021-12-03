@@ -1,53 +1,53 @@
-/* eslint-disable no-tabs */
 const functions = require("firebase-functions");
 const nodemailer = require("nodemailer");
 const sanitizeHtml = require("sanitize-html");
 
 const rateLimit = {
   callLimitForOneIp: 7,
-  timeInSeconds: 10,
+  seconds: 10,
   ipCache: new Map(),
 };
 
+const credentials = functions.config().mail;
+let transporter = null;
+
+if (credentials) {
+  transporter = nodemailer.createTransport({
+    host: credentials.host,
+    port: credentials.port,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: credentials.login, // generated ethereal user
+      pass: credentials.pass, // generated ethereal password
+    },
+  });
+}
+
 exports.sendmail = functions.https.onRequest((req, res) => {
-  const mail = functions.config().mail;
-  let transporter = null;
-  if (mail) {
-    transporter = nodemailer.createTransport({
-      host: functions.config().mail.host,
-      port: functions.config().mail.port,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: functions.config().mail.login, // generated ethereal user
-        pass: functions.config().mail.pass, // generated ethereal password
-      },
-    });
-  } else {
+  if (!credentials) {
     return res.status(500).json({code: "500",
       error: "Mail credentials are undefined"});
   }
-  functions.logger.log(req.body);
-  functions.logger.log(Object.keys(req.body).length);
   const reqIp = req.headers["fastly-client-ip"];
-  let ipUser = {};
+
   const currentDate = new Date();
-  if (rateLimit.ipCache.get(reqIp) === undefined) {
-    rateLimit.ipCache.set(reqIp, {reqCount: 1, time: currentDate});
-  } else {
-    ipUser = rateLimit.ipCache.get(reqIp);
-    functions.logger.log("counts: " + ipUser.reqCount);
-    functions.logger.log("time:"+ (currentDate - ipUser.time)/1000);
-    if (
-      ipUser.reqCount + 1 > rateLimit.callLimitForOneIp ||
-		currentDate - ipUser.time <= rateLimit.timeInSeconds * 1000
-    ) {
-      return res.status(429).json({code: "429", error: "rate limit"});
-    }
+
+  const ipUser = rateLimit.ipCache.get(reqIp) ?? {
+    reqCount: 0,
+    time: currentDate - rateLimit.seconds * 1000,
+  };
+  if (
+    ipUser.reqCount + 1 > rateLimit.callLimitForOneIp ||
+    currentDate - ipUser.time < rateLimit.seconds * 1000
+  ) {
+    return res.status(429).json({code: "429", error: "rate limit"});
   }
-  ipUser = rateLimit.ipCache.get(reqIp);
-  ipUser.reqCount += 1;
+  ipUser.reqCount++;
   ipUser.time = new Date();
-  if (Object.keys(req.body).length === 0) {
+  rateLimit.ipCache.set(reqIp, ipUser);
+
+  const obj = Object.keys(req.body ?? {});
+  if (!obj.length) {
     return res.status(400).json({code: 400, error: "No message!"});
   }
   const lines = Object.entries(req.body)
@@ -56,7 +56,7 @@ exports.sendmail = functions.https.onRequest((req, res) => {
   const myHtml = sanitizeHtml(`<h1> Message from form: </h1>${lines}`);
   const mailOptions = {
     from: "Contact form",
-    to: functions.config().mail.to,
+    to: credentials.to,
     subject: "Hey, nice form!!!",
     html: myHtml,
   };
