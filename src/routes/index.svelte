@@ -65,13 +65,15 @@
 					responseBad.classList.remove('_sending');
 					responseGood.classList.remove('_sending');
 					const referrerValue = document.referrer;
-					let formData = {
-						Name: form.elements.name.value,
-						Email: form.elements.email.value,
-						Message: form.elements.message.value,
-						Sex: form.elements.sex.value,
-						referrer: referrerValue
-					};
+					let formData = {};
+					Array.from(form.elements)
+					.filter(el=>el.tagName !== 'BUTTON')
+					.forEach(element => {
+						formData[element.name] = element.value
+						
+					});
+					formData['referrer'] = referrerValue;
+					
 					console.log(formData);
 					let error = formValidate();
 					if (error === 0) {
