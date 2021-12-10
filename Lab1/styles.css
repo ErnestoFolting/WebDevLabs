@@ -2,12 +2,12 @@
   --fs-base: 14px;
   --clr-footer: rgb(154, 206, 106);
   --clr-footer-text: rgb(37, 173, 173);
-  --clr-box3-box6: rgb(117, 43, 236);
+  --clr-box3: rgb(117, 43, 236);
   --clr-container2: rgb(0, 0, 0);
   --clr-box4-box2: rgb(241, 207, 134);
   --clr-box5: rgb(108, 193, 214);
   --clr-header-back: rgb(153, 152, 255);
-  --clr-nav: rgb(142, 220, 224);
+  --clr-nav: rgb(241, 207, 134);
   --clr-header-link: rgb(241, 121, 145);
   --clr-signboxcontent: rgb(255, 255, 255);
   --clr-headersignbox: rgb(195, 233, 124);
@@ -23,7 +23,10 @@
 
 html,
 body {
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }
 
 header div {
@@ -31,42 +34,17 @@ header div {
   padding: var(--padding-base);
 }
 
-.container1 {
+main {
   display: flex;
   flex: 5;
 }
 
-.container1 div {
+main div {
   margin: var(--margin-base);
   padding: var(--padding-base);
 }
-
-.container2 {
-  background-color: var(--clr-container2);
-  flex: 4;
-  display: flex;
-  flex-direction: column;
-}
-
-.container2 div {
-  margin: var(--margin-base);
-  padding: var(--padding-base);
-}
-
-.subbox1 {
-  flex: 6;
-  background-color: var(--clr-subbox1);
-  display: flex;
-}
-
-.subbox1 div {
-  margin: var(--margin-base);
-  padding: var(--padding-base);
-}
-
-.box6,
 .box3 {
-  background-color: var(--clr-box3-box6);
+  background-color: var(--clr-box3);
   flex: 1;
 }
 
@@ -74,11 +52,9 @@ header div {
 .box2 {
   background-color: var(--clr-box4-box2);
   flex: 1;
-  overflow: hidden;
 }
 
-.box4,
-.box6 {
+.box4{
   text-align: center;
 }
 
@@ -99,16 +75,9 @@ header div {
   flex: 5;
   position: relative;
   text-align: center;
-  overflow: hidden;
   max-height: 1000px;
 }
 
-.container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 
 header {
   flex: 1;
@@ -122,14 +91,7 @@ nav {
   background-color: var(--clr-nav);
   font-size: 1.5vw;
   text-align: center;
-  height: 50%;
-  overflow: hidden;
-}
-
-.responsive {
-  float: right;
-  width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 li {
@@ -151,12 +113,10 @@ div > h3 {
 
 .link {
   display: flex;
-  justify-content: center; /* Центрирование по горизонтали */
+  justify-content: center; 
   align-items: center;
   flex: 4;
-  overflow: hidden;
   background-color: var(--clr-header-link);
-  font-size: 0.8vw;
 }
 
 .headerSignBox {
@@ -193,10 +153,8 @@ header h1 {
 
 .footerText {
   display: flex;
-  justify-content: center; /* Центрирование по горизонтали */
+  justify-content: center; 
   align-items: center;
   flex: 4;
   background-color: var(--clr-footer-text);
-  overflow: hidden;
-  max-height: 150px;
 }

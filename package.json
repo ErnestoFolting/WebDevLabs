@@ -12,7 +12,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-sonarjs": "^0.10.0",
-    "husky": "^4.3.8",
+    "husky": "^7.0.0",
     "lint-staged": "^11.1.2",
     "lite-server": "^2.6.1",
     "prettier": "2.4.1",
@@ -39,6 +39,7 @@
     ]
   },
   "scripts": {
+    "prepare": "husky install",
     "lint": "eslint **/*.js --no-error-on-unmatched-pattern --ignore-path .gitignore",
     "lint:fix": "eslint **/*.js  --fix --ignore-path .gitignore",
     "lintcss": "stylelint **/*.css --ignore-path .gitignore",
