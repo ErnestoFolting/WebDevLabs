@@ -10,12 +10,19 @@ import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core
   import { setClient, operationStore, subscription } from '@urql/svelte';
 
   const wsClient = createWSClient({
-    url: 'wss://kpilab3.herokuapp.com/v1/graphql',
-    reconnect: true
+    url: import.meta.env.VITE_API_WSS_ENDPOINT,
+    reconnect: true,
+    connectionParams:{
+      headers:{
+        'content-type' : 'application/json',
+        'x-hasura-admin-secret' : import.meta.env.VITE_HASURA_ADMIN,
+      }
+    }
+
   });
 
   const client = createClient({
-    url: 'https://kpilab3.herokuapp.com/v1/graphql',
+    url: import.meta.env.VITE_API_HTTPS_ENDPOINT,
     exchanges: [
       ...defaultExchanges,
       subscriptionExchange({
@@ -49,8 +56,12 @@ import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core
 
 async function fetchGraphQL(operationsDoc, operationName, variables) {
   const result = await fetch(
-    "https://kpilab3.herokuapp.com/v1/graphql",
+    import.meta.env.VITE_API_HTTPS_ENDPOINT,
     {
+      headers: {
+      'content-type': 'application/json',
+      'x-hasura-admin-secret' : import.meta.env.VITE_HASURA_ADMIN,
+      },
       method: "POST",
       body: JSON.stringify({
         query: operationsDoc,
