@@ -19,7 +19,7 @@ function errorHandle(errors) {
 }
 
 
-import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core';
+  import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core';
   import { createClient as createWSClient } from 'graphql-ws';
   import { setClient, operationStore, subscription } from '@urql/svelte';
 
@@ -189,11 +189,10 @@ async function startFetchMyQuery() {
     console.error(errors);
     error = errors;
     errorOccured = true;
-    return errors;
+    errorHandle();
   }
   notes = data.notes;
   // do something great with this precious data
-  return data;
 }
 
 async function startExecuteAddNote(author, date, text) {
@@ -240,7 +239,7 @@ let showCurrentSpinner = false;
 let date = new Date(Date.now());
 
 onMount(async()=>{
-    await startFetchMyQuery()
+    await startFetchMyQuery().catch(() => {errorHandle();errorOccured = true; XBtnDisable = true});
 })
 
 </script>
@@ -267,9 +266,11 @@ onMount(async()=>{
         {/if}
       </div>
       <div class = "notes">
-        {#if !notes}
-        <p>...waiting</p>
-      {:else if errorOccured === false}
+        {#if errorOccured === true}
+        <p style = "color:red">No internet connection.</p>
+      {:else if !notes}
+        <Circle3 size="40" unit="px" duration="1s"/>
+      {:else}
         <h3>The number of notes: {notes.length}</h3>
         {#if showCurrentSpinner}
         <Circle3 size="30" unit="px" duration="1s"/>
@@ -286,8 +287,6 @@ onMount(async()=>{
         {/each}
         </ul>
         {/if}
-      {:else}
-        <p style="color: red">{error}</p>
       {/if}
       </div>
     </div>  
