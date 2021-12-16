@@ -6,6 +6,19 @@ import { now } from "svelte/internal";
 import {onMount} from "svelte";
 import { Circle3 } from 'svelte-loading-spinners'
 
+function errorHandle(errors) {
+  showSpinner = false;
+  XBtnDisable = false;
+  showCurrentSpinner = false;
+  if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
+    alert('You make a lot of requests. Try later');
+    return true;
+  }
+  alert('Server Error/ No internet connection');
+  return true;
+}
+
+
 import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core';
   import { createClient as createWSClient } from 'graphql-ws';
   import { setClient, operationStore, subscription } from '@urql/svelte';
@@ -140,8 +153,7 @@ async function startExecuteDeleteCurrentNote(_eq) {
   const { errors, data } = await executeDeleteCurrentNote(_eq);
 
   if (errors) {
-    // handle those errors like a pro
-    console.error(errors);
+    errorHandle();
   }
 
   // do something great with this precious data
@@ -157,12 +169,15 @@ async function startExecuteMyMutation() {
   const { errors, data } = await executeMyMutation();
 
   if (errors) {
-    // handle those errors like a pro
-    console.error(errors);
+    errorHandle()
   }
   await startFetchMyQuery();
   showSpinner = false;
   XBtnDisable = false;
+}
+
+async function deleteAll(){
+  startExecuteMyMutation().catch(()=>errorHandle());
 }
 
 async function startFetchMyQuery() {
@@ -174,25 +189,22 @@ async function startFetchMyQuery() {
     console.error(errors);
     error = errors;
     errorOccured = true;
+    return errors;
   }
   notes = data.notes;
   // do something great with this precious data
-  console.log(data);
+  return data;
 }
 
 async function startExecuteAddNote(author, date, text) {
   const { errors, data } = await executeAddNote(author, date, text);
 
   if (errors) {
-    // handle those errors like a pro
-    console.error(errors);
+    errorHandle()
   }
   // do something great with this precious data
   console.log(data);
-  await startFetchMyQuery();
-  console.log("fetch");
-  showSpinner = false;
-  XBtnDisable = false;
+  await startFetchMyQuery()
 }
 
 
@@ -201,7 +213,7 @@ function addNote(){
   if(authorInput.value.length >= 3 && textInput.value.length >= 3){
     showSpinner = true;
     XBtnDisable = true;
-    startExecuteAddNote(authorInput.value,date,textInput.value);
+    startExecuteAddNote(authorInput.value,date,textInput.value).catch(()=>errorHandle());
     inputNote.reset();
   }else{
     alert("Input data into poles! At least 3 symbols.");
@@ -213,7 +225,7 @@ function deleteCurrent(event){
   let id = event.target.id;
   showCurrentSpinner = true;
   XBtnDisable = true;
-  startExecuteDeleteCurrentNote(id);
+  startExecuteDeleteCurrentNote(id).catch(()=>errorHandle());;
 }
 
 let errorOccured = false;
@@ -249,7 +261,7 @@ onMount(async()=>{
           <textarea name="text"  bind:this={textInput} class="textInput" maxlength="96" placeholder="Input your note"></textarea>
         </form>
         <div class = "buttons">
-          <button class = "buttonDeleteAll" disabled={XBtnDisable} on:click =  {startExecuteMyMutation}>Delete all</button>
+          <button class = "buttonDeleteAll" disabled={XBtnDisable} on:click =  {deleteAll}>Delete all</button>
           <button class = "buttonAddNote" disabled={XBtnDisable} on:click =  {addNote}>Add note</button>
         </div>
         {/if}
@@ -283,9 +295,8 @@ onMount(async()=>{
 
 <style>
   .mainSpinner{
-    position:absolute;
-    left:49%;
-    top: 20%;    
+    display: flex;
+    justify-content: center;
   }
   textarea{
     resize: none;
