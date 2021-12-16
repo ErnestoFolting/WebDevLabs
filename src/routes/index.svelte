@@ -4,6 +4,7 @@
 <script>
 import { now } from "svelte/internal";
 import {onMount} from "svelte";
+import { Circle3 } from 'svelte-loading-spinners'
 
 import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core';
   import { createClient as createWSClient } from 'graphql-ws';
@@ -49,6 +50,10 @@ import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core
   const handleSubscription = (messages = [], data) => {
     console.log([...data.notes]);
     notes=data.notes;
+    showSpinner = false;
+    XBtnDisable = false;
+    showCurrentSpinner = false;
+    console.log("sub");
     return [data.notes, ...messages];
   };
 
@@ -76,7 +81,7 @@ async function fetchGraphQL(operationsDoc, operationName, variables) {
 
 const operationsDoc = `
 query MyQuery {
-    notes(order_by: {id: desc_nulls_first}) {
+    notes {
       author
       date
       text
@@ -141,15 +146,23 @@ async function startExecuteDeleteCurrentNote(_eq) {
 
   // do something great with this precious data
   console.log(data);
+  await startFetchMyQuery();
+  showCurrentSpinner = false;
+  XBtnDisable = false;
 }
 
 async function startExecuteMyMutation() {
+  showSpinner = true;
+  XBtnDisable = true;
   const { errors, data } = await executeMyMutation();
 
   if (errors) {
     // handle those errors like a pro
     console.error(errors);
   }
+  await startFetchMyQuery();
+  showSpinner = false;
+  XBtnDisable = false;
 }
 
 async function startFetchMyQuery() {
@@ -176,30 +189,42 @@ async function startExecuteAddNote(author, date, text) {
   }
   // do something great with this precious data
   console.log(data);
+  await startFetchMyQuery();
+  console.log("fetch");
+  showSpinner = false;
+  XBtnDisable = false;
 }
 
+
 function addNote(){
-	
-  let name = document.getElementById("nameInput").value;
-  let text = document.getElementById("textInput").value;
-  let form = document.getElementById("form");
-  if(name.length >= 3 && text.length >= 3){
-    startExecuteAddNote(name,date,text);
-    form.reset();
+  console.log(authorInput.value);
+  if(authorInput.value.length >= 3 && textInput.value.length >= 3){
+    showSpinner = true;
+    XBtnDisable = true;
+    startExecuteAddNote(authorInput.value,date,textInput.value);
+    inputNote.reset();
   }else{
     alert("Input data into poles! At least 3 symbols.");
-    form.reset();
+    inputNote.reset();
   }
 }
 
 function deleteCurrent(event){
   let id = event.target.id;
+  showCurrentSpinner = true;
+  XBtnDisable = true;
   startExecuteDeleteCurrentNote(id);
 }
 
-let errorOccured =false;
+let errorOccured = false;
 let error;
 let notes;
+let inputNote;
+let authorInput;
+let textInput;
+let XBtnDisable = false;
+let showSpinner = false;
+let showCurrentSpinner = false;
 let date = new Date(Date.now());
 
 onMount(async()=>{
@@ -214,32 +239,41 @@ onMount(async()=>{
     <div class="wrapper">
       <div class = "controlPanel">
         <h1>Notes list:</h1>
-        <form id = "form" class = "inputForm">
-          <input type="text" id = "nameInput" name = "authorInput" maxlength="25" placeholder="Input your name">
-          <textarea name="text"  id = "textInput" class="textInput" maxlength="96" placeholder="Input your note"></textarea>
+        {#if showSpinner}
+          <div class = "mainSpinner">
+          <Circle3 size="40" unit="px" duration="1s"/>
+          </div>
+        {:else}
+        <form id = "form" class = "inputForm" bind:this={inputNote}>
+          <input type="text" bind:this={authorInput} name = "authorInput" maxlength="25" placeholder="Input your name">
+          <textarea name="text"  bind:this={textInput} class="textInput" maxlength="96" placeholder="Input your note"></textarea>
         </form>
         <div class = "buttons">
-          <button class = "buttonDeleteAll"  on:click =  {startExecuteMyMutation}>Delete all</button>
-          <button class = "buttonAddNote"  on:click =  {addNote}>Add note</button>
+          <button class = "buttonDeleteAll" disabled={XBtnDisable} on:click =  {startExecuteMyMutation}>Delete all</button>
+          <button class = "buttonAddNote" disabled={XBtnDisable} on:click =  {addNote}>Add note</button>
         </div>
+        {/if}
       </div>
       <div class = "notes">
         {#if !notes}
         <p>...waiting</p>
       {:else if errorOccured === false}
         <h3>The number of notes: {notes.length}</h3>
+        {#if showCurrentSpinner}
+        <Circle3 size="30" unit="px" duration="1s"/>
+        {:else}
         <ul>
           {#each notes as {author,date,text,id}}
           <li>
             <p>
               <strong>{author}</strong>  <br> <strong>Text:</strong> {text} <br>   {date}  
               <br>
-              <button class = "deleteCurrent" id = "{id}" on:click={event => deleteCurrent(event)}> X </button>
+              <button class = "deleteCurrent" id = "{id}" disabled={XBtnDisable} on:click={event => deleteCurrent(event)}> X </button>
             </p>
           </li>
         {/each}
         </ul>
-        
+        {/if}
       {:else}
         <p style="color: red">{error}</p>
       {/if}
@@ -248,6 +282,11 @@ onMount(async()=>{
 </body>
 
 <style>
+  .mainSpinner{
+    position:absolute;
+    left:49%;
+    top: 20%;    
+  }
   textarea{
     resize: none;
   }
@@ -258,7 +297,6 @@ onMount(async()=>{
   }
   body {
     max-width: 100%;
-    overflow-x: hidden;
   }
   .wrapper{
     text-align: center;
@@ -270,6 +308,7 @@ onMount(async()=>{
   .controlPanel{
     min-height: 320px;
     flex:1;
+    justify-content: center;
   }
   .notes{
     flex:3;
