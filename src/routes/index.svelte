@@ -5,16 +5,20 @@
 import { now } from "svelte/internal";
 import {onMount} from "svelte";
 import { Circle3 } from 'svelte-loading-spinners'
+import Content from './Content.svelte';
 
+
+let msgCheck;
 function errorHandle(errors) {
-  showSpinner = false;
-  XBtnDisable = false;
-  showCurrentSpinner = false;
+  
   if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
-    alert('You make a lot of requests. Try later');
+    msgCheck = 'You make a lot of requests. Try later';
+    setTimeout(() => {msgCheck = '',XBtnDisable = false,showSpinner = false,showCurrentSpinner = false;}, 4000);
     return true;
   }
-  alert('Server Error/ No internet connection');
+
+  msgCheck = 'Server Error / No internet connection';
+  setTimeout(() => {msgCheck = '',XBtnDisable = false,showSpinner = false,showCurrentSpinner = false;}, 4000);
   return true;
 }
 
@@ -242,11 +246,17 @@ onMount(async()=>{
     await startFetchMyQuery().catch(() => {errorHandle();errorOccured = true; XBtnDisable = true});
 })
 
+
+
 </script>
+
 <svelte:head>
     <title>Notes</title>
-  </svelte:head>
+  </svelte:head>  
 <body>
+  {#if msgCheck}
+  <Content {msgCheck}/>
+  {/if}
     <div class="wrapper">
       <div class = "controlPanel">
         <h1>Notes list:</h1>
@@ -348,8 +358,10 @@ onMount(async()=>{
     position:relative;
     background-color:#8ddde9;
     min-height: 50px;
+    max-width: 300px;
     border-radius: 15px;
     text-align: center;
+    word-wrap: break-word;
   }
 	.buttonAddNote{
     cursor:pointer;
