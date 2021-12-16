@@ -109,7 +109,7 @@
 		}
 		startFetchMyQuery()
 			.then(() => {
-				showCurrentSpinner = false;
+				showSpinner = false;
 				XBtnDisable = false;
 			})
 			.catch(() => errorHandle());
@@ -138,7 +138,7 @@
 		}
 		startFetchMyQuery()
 			.then(() => {
-				showCurrentSpinner = false;
+				showSpinner = false;
 				XBtnDisable = false;
 			})
 			.catch(() => errorHandle());
