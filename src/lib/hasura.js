@@ -41,17 +41,6 @@ mutation MyMutation {
   }
 `;
 
-export function fetchMyQuery() {
-	return fetchGraphQL(operationsDoc, 'MyQuery', {});
-}
-
-export function executeMyMutation() {
-	return fetchGraphQL(operationsDoc, 'MyMutation', {});
-}
-export function executeAddNote(author, date, text) {
-	return fetchGraphQL(operationsDoc, 'AddNote', { author: author, date: date, text: text });
-}
-
-export function executeDeleteCurrentNote(_eq) {
-	return fetchGraphQL(operationsDoc, 'deleteCurrentNote', { _eq: _eq });
+export function doQuery(operationName, variables) {
+	return fetchGraphQL(operationsDoc, operationName, variables);
 }

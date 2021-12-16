@@ -5,7 +5,11 @@
 <script>
 	import { onMount } from 'svelte';
 	import { Circle3 } from 'svelte-loading-spinners';
-	import Content from './Content.svelte';
+	import Content from '../lib/header/Content.svelte';
+	import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core';
+	import { createClient as createWSClient } from 'graphql-ws';
+	import { setClient, operationStore, subscription } from '@urql/svelte';
+	import { doQuery } from '$lib/hasura.js';
 
 	let msgCheck;
 	let errorOccured = false;
@@ -33,16 +37,6 @@
 		}, 4000);
 		return true;
 	}
-
-	import { createClient, defaultExchanges, subscriptionExchange } from '@urql/core';
-	import { createClient as createWSClient } from 'graphql-ws';
-	import { setClient, operationStore, subscription } from '@urql/svelte';
-	import {
-		fetchMyQuery,
-		executeMyMutation,
-		executeAddNote,
-		executeDeleteCurrentNote
-	} from '$lib/hasura.js';
 
 	const wsClient = createWSClient({
 		url: import.meta.env.VITE_API_WSS_ENDPOINT,
@@ -86,37 +80,39 @@
 		showSpinner = false;
 		XBtnDisable = false;
 		showCurrentSpinner = false;
-		console.log('sub');
 		return [data.notes, ...messages];
 	};
 
 	subscription(messages, handleSubscription);
 
 	async function startExecuteDeleteCurrentNote(_eq) {
-		const { errors, data } = await executeDeleteCurrentNote(_eq);
-
+		showCurrentSpinner = true;
+		XBtnDisable = true;
+		const { errors, data } = await doQuery('deleteCurrentNote', { _eq: _eq });
 		if (errors) {
 			errorHandle();
 		}
-
-		// do something great with this precious data
-		console.log(data);
-		await startFetchMyQuery();
-		showCurrentSpinner = false;
-		XBtnDisable = false;
+		startFetchMyQuery()
+			.then(() => {
+				showCurrentSpinner = false;
+				XBtnDisable = false;
+			})
+			.catch(() => errorHandle());
 	}
 
 	async function startExecuteMyMutation() {
 		showSpinner = true;
 		XBtnDisable = true;
-		const { errors, data } = await executeMyMutation();
-
+		const { errors, data } = await doQuery('MyMutation');
 		if (errors) {
 			errorHandle();
 		}
-		await startFetchMyQuery();
-		showSpinner = false;
-		XBtnDisable = false;
+		startFetchMyQuery()
+			.then(() => {
+				showCurrentSpinner = false;
+				XBtnDisable = false;
+			})
+			.catch(() => errorHandle());
 	}
 
 	async function deleteAll() {
@@ -124,40 +120,38 @@
 	}
 
 	async function startFetchMyQuery() {
-		const { errors, data } = await fetchMyQuery();
-
+		const { errors, data } = await doQuery('MyQuery');
 		errorOccured = false;
 		if (errors) {
-			// handle those errors like a pro
 			errorOccured = true;
 			errorHandle();
 		}
 		notes = data.notes;
-		// do something great with this precious data
 	}
 
 	async function startExecuteAddNote(author, date, text) {
-		const { errors, data } = await executeAddNote(author, date, text);
-
+		showSpinner = true;
+		XBtnDisable = true;
+		const { errors, data } = await doQuery('AddNote', { author: author, date: date, text: text });
 		if (errors) {
 			errorHandle();
 		}
-		// do something great with this precious data
-		console.log(data);
-		await startFetchMyQuery();
+		startFetchMyQuery()
+			.then(() => {
+				showCurrentSpinner = false;
+				XBtnDisable = false;
+			})
+			.catch(() => errorHandle());
 	}
 
 	function addNote() {
-		console.log(authorInput.value);
 		if (authorInput.value.length >= 3 && textInput.value.length >= 3) {
-			showSpinner = true;
-			XBtnDisable = true;
 			startExecuteAddNote(authorInput.value, date, textInput.value).catch(() => errorHandle());
 			inputNote.reset();
 		} else {
 			msgCheck = 'Input data into poles! At least 3 symbols.';
 			setTimeout(() => {
-				(msgCheck = ''), (XBtnDisable = false), (showSpinner = false), (showCurrentSpinner = false);
+				msgCheck = '';
 			}, 4000);
 			inputNote.reset();
 		}
@@ -165,17 +159,19 @@
 
 	function deleteCurrent(event) {
 		let id = event.target.id;
-		showCurrentSpinner = true;
-		XBtnDisable = true;
 		startExecuteDeleteCurrentNote(id).catch(() => errorHandle());
 	}
 
 	onMount(async () => {
-		await startFetchMyQuery().catch(() => {
-			errorHandle();
-			errorOccured = true;
-			XBtnDisable = true;
-		});
+		startFetchMyQuery()
+			.then(() => {
+				showCurrentSpinner = false;
+				XBtnDisable = false;
+			})
+			.catch(() => {
+				errorHandle();
+				errorOccured = true;
+			});
 	});
 </script>
 
