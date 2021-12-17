@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: '16'
           cache: 'npm'
+        working-directory: Lab4
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
