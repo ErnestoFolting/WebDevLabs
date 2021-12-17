@@ -15,8 +15,6 @@ input {
 .burgerMenu {
 	display: block;
 	position: relative;
-	top: 50px;
-	left: 50px;
 	z-index: 1;
 	user-select: none;
 	-webkit-user-select: none;
@@ -42,17 +40,34 @@ a {
 	width: 40px;
 	height: 32px;
 	position: absolute;
-	top: -7px;
-	left: -5px;
+	top: 23px;
+	left: 25px;
 	cursor: pointer;
 	opacity: 0;
 	z-index: 2;
+}
+
+.backdroper {
+	display: none;
+	position: fixed;
+	background-color: rgba(255, 255, 255, 0.212);
+	z-index: -1;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.burgerMenu input:checked ~ .backdroper {
+	display: block;
 }
 
 .burgerMenu span {
 	display: block;
 	width: 33px;
 	height: 4px;
+	top: 30px;
+	left: 30px;
 	margin-bottom: 5px;
 	position: relative;
 	background-color: rgb(255, 255, 255);
@@ -66,7 +81,7 @@ a {
 	transform-origin: 0% 0%;
 }
 
-.burgerMenu span:nth-last-child(2) {
+.burgerMenu span:nth-last-child(3) {
 	transform-origin: 0% 100%;
 }
 
@@ -76,19 +91,21 @@ a {
 	background-color: rgb(83, 83, 83);
 }
 
-.burgerMenu input:checked ~ span:nth-last-child(3) {
+.burgerMenu input:checked ~ span:nth-child(3) {
 	opacity: 0;
 	transform: rotate (0deg) scale(0.2, 0.2);
 }
 
-.burgerMenu input:checked ~ span:nth-last-child(2) {
+.burgerMenu input:checked ~ span:nth-last-child(3) {
 	transform: rotate(-45deg) translate(0, -1px);
 }
 
 .burger {
 	position: absolute;
 	border-bottom-right-radius: 50px;
-	width: 300px;
+	width: 30%;
+	max-width: 300px;
+	min-width: 200px;
 	margin: -100px 0 0 -50px;
 	padding: 50px;
 	padding-top: 125px;
@@ -100,8 +117,10 @@ a {
 }
 
 .burger li {
-	padding: 10px 0;
+	padding: 10px 20px 10px 20px;
+	left: 30px;
 	font-size: 22px;
+	word-wrap: break-word;
 }
 
 .burgerMenu input:checked ~ ul {

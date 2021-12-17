@@ -9,6 +9,8 @@
 		"lint:fix": "eslint **/*.js --fix --ignore-path .gitignore",
 		"format": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
 		"format:fix": "prettier --ignore-path .gitignore --write .",
+		"style": "stylelint **/*.css --allow-empty-input --ignore-path .gitignore",
+		"style:fix": "stylelint **/*.css --allow-empty-input --ignore-path .gitignore --fix",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
