@@ -1,0 +1,20 @@
+<script>
+	export let msgCheck;
+</script>
+
+<div class="popup">
+	<h3>Warning!</h3>
+	{msgCheck}
+</div>
+
+<style>
+	.popup {
+		text-align: center;
+		background-color: rgb(230, 79, 79);
+		border-radius: 15px;
+		position: fixed;
+		right: 50px;
+		bottom: 50px;
+		padding: 10px 15px;
+	}
+</style>
