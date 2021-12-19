@@ -1,0 +1,253 @@
+* {
+	--hover-cl: rgb(110, 218, 133);
+	--body-bg-color: rgb(83, 83, 83);
+	--backdroper-cl: rgba(255, 255, 255, 0.212);
+	--burger-bg-cl: white;
+	--margin-def: 0;
+	--padding-def: 0;
+}
+
+body {
+	background-color: var(--body-bg-color);
+	margin: var(--margin-def);
+	padding: var(--padding-def);
+}
+
+input {
+	display: none;
+}
+
+.burgerMenu {
+	display: block;
+	position: relative;
+	z-index: 1;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+label,
+a {
+	cursor: pointer;
+}
+
+.burgerMenu a {
+	text-decoration: none;
+	color: var(--body-bg-color);
+	transition: color 400ms ease;
+}
+
+.burgerMenu a:hover {
+	color: var(--hover-cl);
+}
+
+.burgerMenu input {
+	display: block;
+	width: 40px;
+	height: 32px;
+	position: absolute;
+	top: 23px;
+	left: 25px;
+	cursor: pointer;
+	opacity: 0;
+	z-index: 2;
+}
+
+.backdroper {
+	display: none;
+	position: fixed;
+	background-color: var(--backdroper-cl);
+	z-index: -1;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.burgerMenu input:checked ~ .backdroper {
+	display: block;
+}
+
+.burgerMenu span {
+	display: block;
+	width: 33px;
+	height: 4px;
+	top: 30px;
+	left: 30px;
+	margin-bottom: 5px;
+	position: relative;
+	background-color: var(--burger-bg-cl);
+	border-radius: 3px;
+	z-index: 1;
+	transform-origin: 4px 0;
+	transition: transform 500ms ease, background 500ms ease, opacity 550ms ease;
+}
+
+.burgerMenu span:first-child {
+	transform-origin: 0% 0%;
+}
+
+.burgerMenu span:nth-last-child(3) {
+	transform-origin: 0% 100%;
+}
+
+.burgerMenu input:checked ~ span {
+	opacity: 1;
+	transform: rotate(45deg) translate(-2px, -1px);
+	background-color: var(--body-bg-color);
+}
+
+.burgerMenu input:checked ~ span:nth-child(3) {
+	opacity: 0;
+	transform: rotate (0deg) scale(0.2, 0.2);
+}
+
+.burgerMenu input:checked ~ span:nth-last-child(3) {
+	transform: rotate(-45deg) translate(0, -1px);
+}
+
+.burger {
+	position: absolute;
+	border-bottom-right-radius: 50px;
+	width: 30%;
+	max-width: 300px;
+	min-width: 200px;
+	margin: -100px 0 0 -50px;
+	padding: 50px;
+	padding-top: 125px;
+	background-color: var(--burger-bg-cl);
+	list-style-type: none;
+	transform-origin: 0% 0%;
+	transform: translate(-100%, 0);
+	transition: transform 500ms ease;
+}
+
+.burger li {
+	padding: 10px 20px 10px 20px;
+	left: 30px;
+	font-size: 22px;
+	word-wrap: break-word;
+}
+
+.burgerMenu input:checked ~ ul {
+	transform: none;
+}
+
+.cover {
+	color: var(--burger-bg-cl);
+	text-align: center;
+	padding: 20px;
+}
+
+.slider {
+	position: relative;
+	text-align: center;
+	top: 50px;
+	margin: 0 auto;
+}
+
+.slider article {
+	width: 20%;
+	float: left;
+}
+
+.slider .image {
+	width: 500%;
+	line-height: 0;
+	transition: all 0.8s ease;
+}
+
+.overflow {
+	width: 100%;
+	overflow: hidden;
+}
+
+article img {
+	width: 100%;
+}
+
+.inputCover:checked ~ .slider {
+	max-width: 960px;
+}
+
+.active label {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border-radius: 5px;
+	background-color: var(--hover-cl);
+}
+
+.active label:hover {
+	background-color: var(--burger-bg-cl);
+	transition: 0.5s;
+}
+
+.controls label:hover {
+	opacity: 0.2;
+	transition: 0.5s;
+}
+
+#switch1:checked ~ .controls label:nth-child(5),
+#switch2:checked ~ .controls label:nth-child(1),
+#switch3:checked ~ .controls label:nth-child(2),
+#switch4:checked ~ .controls label:nth-child(3),
+#switch5:checked ~ .controls label:nth-child(4) {
+	background: url('/images/prev.png') no-repeat;
+	float: left;
+	display: block;
+	margin: 0 0 0 0;
+	height: 50px;
+	width: 50px;
+}
+
+#switch1:checked ~ .controls label:nth-child(2),
+#switch2:checked ~ .controls label:nth-child(3),
+#switch3:checked ~ .controls label:nth-child(4),
+#switch4:checked ~ .controls label:nth-child(5),
+#switch5:checked ~ .controls label:nth-child(1) {
+	background: url('/images/next.png') no-repeat;
+	float: right;
+	display: block;
+	margin: 0 0 0 0;
+	height: 50px;
+	width: 50px;
+}
+
+#switch1:checked ~ .slides .image {
+	margin-left: 0;
+}
+
+#switch2:checked ~ .slides .image {
+	margin-left: -100%;
+}
+
+#switch3:checked ~ .slides .image {
+	margin-left: -200%;
+}
+
+#switch4:checked ~ .slides .image {
+	margin-left: -300%;
+}
+
+#switch5:checked ~ .slides .image {
+	margin-left: -400%;
+}
+
+.controls {
+	margin: -25% 0 0 0;
+	width: 100%;
+	height: 50px;
+}
+
+.active {
+	margin: 23% 0 0;
+	text-align: center;
+}
+
+#switch1:checked ~ .active label:nth-child(1),
+#switch2:checked ~ .active label:nth-child(2),
+#switch3:checked ~ .active label:nth-child(3),
+#switch4:checked ~ .active label:nth-child(4),
+#switch5:checked ~ .active label:nth-child(5) {
+	background-color: var(--burger-bg-cl);
+}
