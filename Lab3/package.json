@@ -38,6 +38,6 @@
 		"body-parser": "^1.19.0",
 		"cookie": "^0.4.1",
 		"firebase-tools": "^9.21.0",
-    "urql": "^2.0.5"
+		"urql": "^2.0.5"
 	}
 }
