@@ -31,7 +31,7 @@
 			return true;
 		}
 
-		msgCheck = 'Server Error / No internet connection';
+		msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}` ;
 		setTimeout(() => {
 			(msgCheck = ''), (XBtnDisable = false), (showSpinner = false), (showCurrentSpinner = false);
 		}, 4000);
@@ -193,7 +193,7 @@
 					<Circle3 size="40" unit="px" duration="1s" />
 				</div>
 			{:else}
-				<form id="form" class="inputForm" bind:this={inputNote}>
+				<form class="inputForm" bind:this={inputNote}>
 					<input
 						type="text"
 						bind:this={authorInput}
@@ -271,8 +271,6 @@
 	}
 	.wrapper {
 		text-align: center;
-		width: 100vw;
-		height: 100vh;
 		display: flex;
 		flex-direction: column;
 	}
