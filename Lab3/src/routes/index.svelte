@@ -193,7 +193,7 @@
 					<Circle3 size="40" unit="px" duration="1s" />
 				</div>
 			{:else}
-				<form class="inputForm" bind:this={inputNote}>
+				<form id="form" class="inputForm" bind:this={inputNote}>
 					<input
 						type="text"
 						bind:this={authorInput}
