@@ -65,6 +65,14 @@ main div {
   flex-direction: column;
 }
 
+footer div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 4;
+  background-color: var(--clr-footer-text);
+}
+
 .subbox35 div {
   margin: var(--margin-base);
   padding: var(--padding-base);
@@ -141,7 +149,7 @@ header h1 {
   background-color: var(--clr-signboxcontent);
 }
 
-footer h1{
+footer h1 {
   flex: 1;
   height: 100%;
   background-color: var(--clr-footer);
@@ -149,12 +157,4 @@ footer h1{
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-footer div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 4;
-  background-color: var(--clr-footer-text);
 }
