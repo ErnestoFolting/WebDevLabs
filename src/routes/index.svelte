@@ -67,13 +67,12 @@
 					const referrerValue = document.referrer;
 					let formData = {};
 					Array.from(form.elements)
-					.filter(el=>el.tagName !== 'BUTTON')
-					.forEach(element => {
-						formData[element.name] = element.value
-						
-					});
+						.filter((el) => el.tagName !== 'BUTTON')
+						.forEach((element) => {
+							formData[element.name] = element.value;
+						});
 					formData['referrer'] = referrerValue;
-					
+
 					console.log(formData);
 					let error = formValidate();
 					if (!error) {
