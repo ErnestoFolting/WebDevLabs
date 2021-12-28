@@ -3,11 +3,11 @@ const nodemailer = require("nodemailer");
 const sanitizeHtml = require("sanitize-html");
 
 const rateLimit = {
-  callLimitForOneIp: 7,
-  seconds: 10,
+  callLimitForOneIp: 3,
+  seconds: 5,
   ipCache: new Map(),
 };
-
+console.log(functions.config());
 const credentials = functions.config().mail;
 let transporter = null;
 

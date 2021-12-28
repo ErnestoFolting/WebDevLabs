@@ -14,7 +14,7 @@
 		<h4>Unfortunately, your form was not sent</h4>
 	</div>
 	<div class="form">
-		<form action="#" id="form" class="form__body">
+		<form id="form" class="form__body">
 			<h1 class="form__title">Form sender to mail</h1>
 			<div class="form__item">
 				<label for="formName" class="form__label">Ім'я*</label>
@@ -76,7 +76,7 @@
 					
 					console.log(formData);
 					let error = formValidate();
-					if (error === 0) {
+					if (!error) {
 						let response = await fetch('/api/sendmail', {
 							method: 'POST',
 							headers: {
