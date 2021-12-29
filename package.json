@@ -8,7 +8,9 @@
 		"lint": "eslint --ignore-path .gitignore .",
 		"lint:fix": "eslint **/*.js --fix --ignore-path .gitignore",
 		"format": "prettier --check .  --ignore-path .gitignore  --plugin-search-dir=. .",
-		"format:fix": "prettier --write . --ignore-path .gitignore "
+		"format:fix": "prettier --write . --ignore-path .gitignore ",
+		"stylelint": "stylelint **/*.scss --allow-empty-input --ignore-path .gitignore",
+		"stylelint:fix": "stylelint **/*.scss --allow-empty-input --fix --ignore-path .gitignore"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^1.0.0-next.21",
@@ -24,7 +26,10 @@
 		"sass": "^1.43.4",
 		"svelte": "^3.44.0",
 		"svelte-loading-spinners": "^0.1.7",
-		"svelte-preprocess": "^4.9.5"
+		"svelte-preprocess": "^4.9.5",
+		"stylelint": "^14.0.1",
+		"stylelint-config-standard": "^23.0.0",
+		"stylelint-config-standard-scss": "^2.0.1"
 	},
 	"type": "module",
 	"dependencies": {

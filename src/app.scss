@@ -1,16 +1,17 @@
-/* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
-
 @import '@fontsource/fira-mono';
 
 :root {
 	font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
 	--font-mono: 'Fira Mono', monospace;
-	--pure-white: #ffffff;
+	--pure-white: #fff;
 	--primary-color: #eed2d2;
 	--secondary-color: #1acbeb;
 	--tertiary-color: #edf0f8;
 	--accent-color: #ff3e00;
+	--success-color: rgb(47 146 47);
+	--error-color: #f54343;
 }
 
 body {
@@ -32,20 +33,16 @@ body::before {
 	top: 0;
 	left: 10vw;
 	z-index: -1;
-	background: radial-gradient(
-		50% 50% at 50% 50%,
-		var(--pure-white) 0%,
-		var(--primary-color) 100%
-	);
-	opacity: 0.05;
+	background: radial-gradient(50% 50% at 50% 50%, var(--pure-white) 0%, var(--primary-color) 100%);
+	opacity: 5%;
 }
 
 section {
 	display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
 }
 
 #svelte {
@@ -73,29 +70,40 @@ button:focus:not(:focus-visible) {
 	}
 }
 
-.mainForm{
+.mainForm {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	text-align: center;
 }
 
-textarea,input{
-	padding: 15px 15px 15px 15px;
-	width:100%
+textarea,
+input {
+	padding: 15px;
+	width: 100%;
 }
 
-textarea{
+textarea {
 	height: 250px;
-	display:block;
+	display: block;
 	resize: none;
 }
-button{
+
+button {
 	margin: 20px;
 	width: 50%;
 }
 
-button:hover{
-	cursor:pointer;
+button:hover {
+	cursor: pointer;
 	background-color: var(--secondary-color);
-	transition: ease 600ms ;
+	transition: ease 600ms;
+}
+
+.successMessage {
+	color: var(--success-color);
+}
+
+.errorMessage {
+	color: var(--error-color);
 }
