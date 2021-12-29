@@ -1,7 +1,7 @@
 module.exports = {
 	root: true,
-	extends: ['eslint:recommended', 'prettier','plugin:sonarjs/recommended'],
-	plugins: ['svelte3','sonarjs', 'prettier'],
+	extends: ['eslint:recommended', 'prettier', 'plugin:sonarjs/recommended'],
+	plugins: ['svelte3', 'sonarjs', 'prettier'],
 	overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
 	parserOptions: {
 		sourceType: 'module',
