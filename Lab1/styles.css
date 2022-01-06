@@ -29,8 +29,11 @@ body {
 }
 
 header div {
-  margin: var(--margin-base);
-  padding: var(--padding-base);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 4;
+  background-color: var(--clr-header-link);
 }
 
 main {
@@ -116,14 +119,6 @@ div > h3 {
   max-width: 600px;
   max-height: 300px;
   height: auto;
-}
-
-header div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 4;
-  background-color: var(--clr-header-link);
 }
 
 header h1 {
