@@ -3,8 +3,8 @@ const nodemailer = require('nodemailer');
 const sanitizeHtml = require('sanitize-html');
 
 const rateLimit = {
-	callLimitForOneIp: 5,
-	seconds: 10,
+	callLimitForOneIp: 3,
+	seconds: 25,
 	ipCache: new Map()
 };
 console.log(functions.config());
