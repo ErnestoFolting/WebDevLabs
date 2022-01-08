@@ -16,6 +16,6 @@
 		right: 50px;
 		bottom: 50px;
 		padding: 10px 15px;
-		z-index:2;
+		z-index: 2;
 	}
 </style>

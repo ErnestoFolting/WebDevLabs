@@ -31,7 +31,7 @@
 			return true;
 		}
 
-		msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}` ;
+		msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
 		setTimeout(() => {
 			(msgCheck = ''), (XBtnDisable = false), (showSpinner = false), (showCurrentSpinner = false);
 		}, 4000);
