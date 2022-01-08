@@ -7,14 +7,12 @@
 	let textInError = '';
 	let showSpinner = false;
 	let showSuccess = false;
-	let showError = false;
 	let disableButton = false;
 	let form = {
 		reset: () => {}
 	};
 	let mainFormHandler = async (e) => {
 		showSuccess = false;
-		showError = false;
 		disableButton = true;
 		showSpinner = true;
 		let formData = Object.fromEntries(
@@ -45,7 +43,6 @@
 			} else if (e.status === 429) {
 				textInError = 'You sent the form too many times';
 			}
-			showError = true;
 		} finally {
 			showSpinner = false;
 			disableButton = false;
@@ -85,7 +82,7 @@
 		{/if}
 		{#if showSuccess}
 			<h3 class="successMessage">Successfully sent!</h3>
-		{:else if showError}
+		{:else if textInError != ''}
 			<h3 class="errorMessage">
 				Unfortunately, was not send. <br />
 				{textInError}
