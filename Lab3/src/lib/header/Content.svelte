@@ -1,10 +1,11 @@
 <script>
-	export let msgCheck;
+	import{msgCheck}from '../../store' 
+	$: msgCheck && setTimeout(() => ($msgCheck = ''), 4000)
 </script>
 
 <div class="popup">
 	<h3>Warning!</h3>
-	{msgCheck}
+	{$msgCheck}
 </div>
 
 <style>

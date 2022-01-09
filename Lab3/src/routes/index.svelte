@@ -10,8 +10,8 @@
 	import { createClient as createWSClient } from 'graphql-ws';
 	import { setClient, operationStore, subscription } from '@urql/svelte';
 	import { doQuery } from '$lib/hasura.js';
+	import {msgCheck} from '../store';
 
-	let msgCheck;
 	let errorOccured = false;
 	let notes;
 	let inputNote;
@@ -28,17 +28,13 @@
 
 	function errorHandle(errors) {
 		if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
-			msgCheck = 'You make a lot of requests. Try later';
-			setTimeout(() => {
-				(msgCheck = ''), resetStatus();
-			}, 4000);
+			$msgCheck = 'You make a lot of requests. Try later';
+			resetStatus();
 			return true;
 		}
 
-		msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
-		setTimeout(() => {
-			(msgCheck = ''), resetStatus();
-		}, 4000);
+		$msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
+		resetStatus();
 		return true;
 	}
 
@@ -151,10 +147,8 @@
 			startExecuteAddNote(authorInput.value, date, textInput.value).catch(() => errorHandle());
 			inputNote.reset();
 		} else {
-			msgCheck = 'Input data into poles! At least 3 symbols.';
-			setTimeout(() => {
-				msgCheck = '';
-			}, 4000);
+			$msgCheck = 'Input data into poles! At least 3 symbols.';
+			resetStatus();
 			inputNote.reset();
 		}
 	}
@@ -180,8 +174,8 @@
 	<title>Notes</title>
 </svelte:head>
 <body>
-	{#if msgCheck}
-		<Content {msgCheck} />
+	{#if $msgCheck}
+		<Content/>
 	{/if}
 	<div class="wrapper">
 		<div class="controlPanel">
