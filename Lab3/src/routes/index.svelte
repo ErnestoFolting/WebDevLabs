@@ -108,7 +108,7 @@
 	}
 
 	async function deleteAll() {
-		startExecuteMyMutation().catch(() => errorHandle());
+		startExecuteMyMutation().catch(errorHandle);
 	}
 
 	async function startFetchMyQuery() {
@@ -136,7 +136,7 @@
 
 	function addNote() {
 		if (authorInput.value.length >= 3 && textInput.value.length >= 3) {
-			startExecuteAddNote(authorInput.value, date, textInput.value).catch(() => errorHandle());
+			startExecuteAddNote(authorInput.value, date, textInput.value).catch(errorHandle);
 			inputNote.reset();
 		} else {
 			$msgCheck = 'Input data into poles! At least 3 symbols.';
@@ -146,7 +146,7 @@
 
 	function deleteCurrent(event) {
 		let id = event.target.dataset.id;
-		startExecuteDeleteCurrentNote(id).catch(() => errorHandle());
+		startExecuteDeleteCurrentNote(id).catch(errorHandle);
 	}
 
 	onMount(async () => {
