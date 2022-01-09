@@ -29,12 +29,10 @@
 	function errorHandle(errors) {
 		if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
 			$msgCheck = 'You make a lot of requests. Try later';
-			resetStatus();
 			return true;
 		}
 
 		$msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
-		resetStatus();
 		return true;
 	}
 
@@ -92,10 +90,8 @@
 			errorHandle();
 		}
 		startFetchMyQuery()
-			.then(() => {
-				resetStatus();
-			})
-			.catch(() => errorHandle());
+			.catch(errorHandle)
+			.finally(resetStatus);
 	}
 
 	async function startExecuteMyMutation() {
@@ -107,10 +103,8 @@
 			errorHandle();
 		}
 		startFetchMyQuery()
-			.then(() => {
-				resetStatus();
-			})
-			.catch(() => errorHandle());
+			.catch(errorHandle)
+			.finally(resetStatus);
 	}
 
 	async function deleteAll() {
@@ -136,10 +130,8 @@
 			errorHandle();
 		}
 		startFetchMyQuery()
-			.then(() => {
-				resetStatus();
-			})
-			.catch(() => errorHandle());
+			.catch(errorHandle)
+			.finally(resetStatus);
 	}
 
 	function addNote() {
@@ -148,7 +140,6 @@
 			inputNote.reset();
 		} else {
 			$msgCheck = 'Input data into poles! At least 3 symbols.';
-			resetStatus();
 			inputNote.reset();
 		}
 	}
@@ -160,13 +151,11 @@
 
 	onMount(async () => {
 		startFetchMyQuery()
-			.then(() => {
-				resetStatus();
-			})
 			.catch(() => {
 				errorHandle();
 				errorOccured = true;
-			});
+			})
+			.finally(resetStatus);
 	});
 </script>
 
