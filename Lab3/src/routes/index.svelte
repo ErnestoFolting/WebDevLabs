@@ -228,7 +228,7 @@
 					<Circle3 size="30" unit="px" duration="1s" />
 				{:else}
 					<ul>
-						{#each notes as { author, date, text, id }}
+						{#each notes as { author, date, text, id } (id)}
 							<li>
 								<p>
 									<strong>{author}</strong> <br /> <strong>Text:</strong>
