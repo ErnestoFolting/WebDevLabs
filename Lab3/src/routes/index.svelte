@@ -161,7 +161,7 @@
 	}
 
 	function deleteCurrent(event) {
-		let id = event.target.id;
+		let id = event.target.dataset.id;
 		startExecuteDeleteCurrentNote(id).catch(() => errorHandle());
 	}
 
@@ -237,7 +237,7 @@
 									<br />
 									<button
 										class="deleteCurrent"
-										{id}
+										data-id = {id}
 										disabled={XBtnDisable}
 										on:click={(event) => deleteCurrent(event)}
 									>
