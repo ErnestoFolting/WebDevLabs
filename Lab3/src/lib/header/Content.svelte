@@ -1,6 +1,6 @@
 <script>
-	import{msgCheck}from '../../store' 
-	$: msgCheck && setTimeout(() => ($msgCheck = ''), 4000)
+	import { msgCheck } from '../../store';
+	$: msgCheck && setTimeout(() => ($msgCheck = ''), 4000);
 </script>
 
 <div class="popup">

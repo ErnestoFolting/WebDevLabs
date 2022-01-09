@@ -10,7 +10,7 @@
 	import { createClient as createWSClient } from 'graphql-ws';
 	import { setClient, operationStore, subscription } from '@urql/svelte';
 	import { doQuery } from '$lib/hasura.js';
-	import {msgCheck} from '../store';
+	import { msgCheck } from '../store';
 
 	let errorOccured = false;
 	let notes;
@@ -89,9 +89,7 @@
 		if (errors) {
 			errorHandle();
 		}
-		startFetchMyQuery()
-			.catch(errorHandle)
-			.finally(resetStatus);
+		startFetchMyQuery().catch(errorHandle).finally(resetStatus);
 	}
 
 	async function startExecuteMyMutation() {
@@ -102,9 +100,7 @@
 		if (errors) {
 			errorHandle();
 		}
-		startFetchMyQuery()
-			.catch(errorHandle)
-			.finally(resetStatus);
+		startFetchMyQuery().catch(errorHandle).finally(resetStatus);
 	}
 
 	async function deleteAll() {
@@ -129,9 +125,7 @@
 		if (errors) {
 			errorHandle();
 		}
-		startFetchMyQuery()
-			.catch(errorHandle)
-			.finally(resetStatus);
+		startFetchMyQuery().catch(errorHandle).finally(resetStatus);
 	}
 
 	function addNote() {
@@ -164,7 +158,7 @@
 </svelte:head>
 <body>
 	{#if $msgCheck}
-		<Content/>
+		<Content />
 	{/if}
 	<div class="wrapper">
 		<div class="controlPanel">
