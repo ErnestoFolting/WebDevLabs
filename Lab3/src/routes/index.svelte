@@ -22,18 +22,22 @@
 	let showCurrentSpinner = false;
 	let date = new Date(Date.now());
 
+	function resetStatus(){
+		XBtnDisable = showSpinner = showCurrentSpinner = false;
+	}
+
 	function errorHandle(errors) {
 		if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
 			msgCheck = 'You make a lot of requests. Try later';
 			setTimeout(() => {
-				(msgCheck = ''), (XBtnDisable = false), (showSpinner = false), (showCurrentSpinner = false);
+				(msgCheck = ''), resetStatus();
 			}, 4000);
 			return true;
 		}
 
 		msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
 		setTimeout(() => {
-			(msgCheck = ''), (XBtnDisable = false), (showSpinner = false), (showCurrentSpinner = false);
+			(msgCheck = ''),resetStatus();
 		}, 4000);
 		return true;
 	}
@@ -77,9 +81,7 @@
 	const handleSubscription = (messages = [], data) => {
 		console.log([...data.notes]);
 		notes = data.notes;
-		showSpinner = false;
-		XBtnDisable = false;
-		showCurrentSpinner = false;
+		resetStatus()
 		return [data.notes, ...messages];
 	};
 
@@ -95,8 +97,7 @@
 		}
 		startFetchMyQuery()
 			.then(() => {
-				showCurrentSpinner = false;
-				XBtnDisable = false;
+				resetStatus()
 			})
 			.catch(() => errorHandle());
 	}
@@ -111,8 +112,7 @@
 		}
 		startFetchMyQuery()
 			.then(() => {
-				showSpinner = false;
-				XBtnDisable = false;
+				resetStatus()
 			})
 			.catch(() => errorHandle());
 	}
@@ -141,8 +141,7 @@
 		}
 		startFetchMyQuery()
 			.then(() => {
-				showSpinner = false;
-				XBtnDisable = false;
+				resetStatus()
 			})
 			.catch(() => errorHandle());
 	}
@@ -168,8 +167,7 @@
 	onMount(async () => {
 		startFetchMyQuery()
 			.then(() => {
-				showCurrentSpinner = false;
-				XBtnDisable = false;
+				resetStatus()
 			})
 			.catch(() => {
 				errorHandle();
