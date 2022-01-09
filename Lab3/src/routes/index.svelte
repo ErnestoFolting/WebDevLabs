@@ -22,7 +22,7 @@
 	let showCurrentSpinner = false;
 	let date = new Date(Date.now());
 
-	function resetStatus(){
+	function resetStatus() {
 		XBtnDisable = showSpinner = showCurrentSpinner = false;
 	}
 
@@ -37,7 +37,7 @@
 
 		msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
 		setTimeout(() => {
-			(msgCheck = ''),resetStatus();
+			(msgCheck = ''), resetStatus();
 		}, 4000);
 		return true;
 	}
@@ -81,7 +81,7 @@
 	const handleSubscription = (messages = [], data) => {
 		console.log([...data.notes]);
 		notes = data.notes;
-		resetStatus()
+		resetStatus();
 		return [data.notes, ...messages];
 	};
 
@@ -97,7 +97,7 @@
 		}
 		startFetchMyQuery()
 			.then(() => {
-				resetStatus()
+				resetStatus();
 			})
 			.catch(() => errorHandle());
 	}
@@ -112,7 +112,7 @@
 		}
 		startFetchMyQuery()
 			.then(() => {
-				resetStatus()
+				resetStatus();
 			})
 			.catch(() => errorHandle());
 	}
@@ -141,7 +141,7 @@
 		}
 		startFetchMyQuery()
 			.then(() => {
-				resetStatus()
+				resetStatus();
 			})
 			.catch(() => errorHandle());
 	}
@@ -167,7 +167,7 @@
 	onMount(async () => {
 		startFetchMyQuery()
 			.then(() => {
-				resetStatus()
+				resetStatus();
 			})
 			.catch(() => {
 				errorHandle();
@@ -235,7 +235,7 @@
 									<br />
 									<button
 										class="deleteCurrent"
-										data-id = {id}
+										data-id={id}
 										disabled={XBtnDisable}
 										on:click={(event) => deleteCurrent(event)}
 									>
