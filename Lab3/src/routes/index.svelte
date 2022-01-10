@@ -19,22 +19,19 @@
 	let textInput;
 	let XBtnDisable = false;
 	let showSpinner = false;
-	let showCurrentSpinner = false;
 	let date = new Date(Date.now());
 
 	function resetStatus() {
-		XBtnDisable = showSpinner = showCurrentSpinner = false;
+		XBtnDisable = showSpinner = false;
 	}
 
 	function errorHandle(errors) {
 		if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
 			$msgCheck = 'You make a lot of requests. Try later';
-			resetStatus();
 			return true;
 		}
 
 		$msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
-		resetStatus();
 		return true;
 	}
 
@@ -84,14 +81,14 @@
 	subscription(messages, handleSubscription);
 
 	async function startExecuteDeleteCurrentNote(_eq) {
-		showCurrentSpinner = true;
+		showSpinner = true;
 		XBtnDisable = true;
 		const { errors, data } = await doQuery('deleteCurrentNote', { _eq: _eq });
 		console.log(data);
 		if (errors) {
-			errorHandle();
+			throw errors[0];
 		}
-		startFetchMyQuery().catch(errorHandle).finally(resetStatus);
+		await startFetchMyQuery();
 	}
 
 	async function startExecuteMyMutation() {
@@ -100,13 +97,13 @@
 		const { errors, data } = await doQuery('MyMutation');
 		console.log(data);
 		if (errors) {
-			errorHandle();
+			throw errors[0];
 		}
-		startFetchMyQuery().catch(errorHandle).finally(resetStatus);
+		await startFetchMyQuery();
 	}
 
 	async function deleteAll() {
-		startExecuteMyMutation().catch(errorHandle);
+		startExecuteMyMutation().catch(errorHandle).finally(resetStatus);
 	}
 
 	async function startFetchMyQuery() {
@@ -114,7 +111,7 @@
 		errorOccured = false;
 		if (errors) {
 			errorOccured = true;
-			errorHandle();
+			throw errors[0];
 		}
 		notes = data.notes;
 	}
@@ -125,14 +122,16 @@
 		const { errors, data } = await doQuery('AddNote', { author: author, date: date, text: text });
 		console.log(data);
 		if (errors) {
-			errorHandle();
+			throw errors[0];
 		}
-		startFetchMyQuery().catch(errorHandle).finally(resetStatus);
+		await startFetchMyQuery();
 	}
 
 	function addNote() {
 		if (authorInput.value.length >= 3 && textInput.value.length >= 3) {
-			startExecuteAddNote(authorInput.value, date, textInput.value).catch(errorHandle);
+			startExecuteAddNote(authorInput.value, date, textInput.value)
+				.catch(errorHandle)
+				.finally(resetStatus);
 			inputNote.reset();
 		} else {
 			$msgCheck = 'Input data into poles! At least 3 symbols.';
@@ -142,7 +141,7 @@
 
 	function deleteCurrent(event) {
 		let id = event.target.dataset.id;
-		startExecuteDeleteCurrentNote(id).catch(errorHandle);
+		startExecuteDeleteCurrentNote(id).catch(errorHandle).finally(resetStatus);
 	}
 
 	onMount(async () => {
@@ -201,30 +200,26 @@
 				<Circle3 size="40" unit="px" duration="1s" />
 			{:else}
 				<h3>The number of notes: {notes.length}</h3>
-				{#if showCurrentSpinner}
-					<Circle3 size="30" unit="px" duration="1s" />
-				{:else}
-					<ul>
-						{#each notes as { author, date, text, id } (id)}
-							<li>
-								<p>
-									<strong>{author}</strong> <br /> <strong>Text:</strong>
-									{text} <br />
-									{date}
-									<br />
-									<button
-										class="deleteCurrent"
-										data-id={id}
-										disabled={XBtnDisable}
-										on:click={(event) => deleteCurrent(event)}
-									>
-										X
-									</button>
-								</p>
-							</li>
-						{/each}
-					</ul>
-				{/if}
+				<ul>
+					{#each notes as { author, date, text, id } (id)}
+						<li>
+							<p>
+								<strong>{author}</strong> <br /> <strong>Text:</strong>
+								{text} <br />
+								{date}
+								<br />
+								<button
+									class="deleteCurrent"
+									data-id={id}
+									disabled={XBtnDisable}
+									on:click={(event) => deleteCurrent(event)}
+								>
+									X
+								</button>
+							</p>
+						</li>
+					{/each}
+				</ul>
 			{/if}
 		</div>
 	</div>
@@ -252,7 +247,7 @@
 		flex-direction: column;
 	}
 	.controlPanel {
-		min-height: 320px;
+		min-height: 330px;
 		flex: 1;
 		justify-content: center;
 	}
