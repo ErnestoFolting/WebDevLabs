@@ -29,10 +29,12 @@
 	function errorHandle(errors) {
 		if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
 			$msgCheck = 'You make a lot of requests. Try later';
+			resetStatus();
 			return true;
 		}
 
 		$msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
+		resetStatus();
 		return true;
 	}
 
