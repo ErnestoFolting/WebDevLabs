@@ -28,11 +28,11 @@
 	function errorHandle(errors) {
 		if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
 			$msgCheck = 'You make a lot of requests. Try later';
-			return true;
+			return;
 		}
 
 		$msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
-		return true;
+		return;
 	}
 
 	const wsClient = createWSClient({
@@ -81,8 +81,8 @@
 	subscription(messages, handleSubscription);
 
 	async function startExecuteDeleteCurrentNote(_eq) {
-		showSpinner = true;
-		XBtnDisable = true;
+		showSpinner = XBtnDisable = true;
+
 		const { errors, data } = await doQuery('deleteCurrentNote', { _eq: _eq });
 		console.log(data);
 		if (errors) {
@@ -92,8 +92,7 @@
 	}
 
 	async function startExecuteMyMutation() {
-		showSpinner = true;
-		XBtnDisable = true;
+		showSpinner = XBtnDisable = true;
 		const { errors, data } = await doQuery('MyMutation');
 		console.log(data);
 		if (errors) {
@@ -117,8 +116,7 @@
 	}
 
 	async function startExecuteAddNote(author, date, text) {
-		showSpinner = true;
-		XBtnDisable = true;
+		showSpinner = XBtnDisable = true;
 		const { errors, data } = await doQuery('AddNote', { author: author, date: date, text: text });
 		console.log(data);
 		if (errors) {
@@ -162,14 +160,14 @@
 		<Content />
 	{/if}
 	<div class="wrapper">
-		<div class="controlPanel">
+		<div class="control-panel">
 			<h1>Notes list:</h1>
 			{#if showSpinner}
-				<div class="mainSpinner">
+				<div class="main-spinner">
 					<Circle3 size="40" unit="px" duration="1s" />
 				</div>
 			{:else}
-				<form class="inputForm" bind:this={inputNote}>
+				<form class="input-form" bind:this={inputNote}>
 					<input
 						type="text"
 						bind:this={authorInput}
@@ -186,10 +184,10 @@
 					/>
 				</form>
 				<div class="buttons">
-					<button class="buttonDeleteAll" disabled={XBtnDisable} on:click={deleteAll}
+					<button class="button-delete-all" disabled={XBtnDisable} on:click={deleteAll}
 						>Delete all</button
 					>
-					<button class="buttonAddNote" disabled={XBtnDisable} on:click={addNote}>Add note</button>
+					<button class="button-add-note" disabled={XBtnDisable} on:click={addNote}>Add note</button>
 				</div>
 			{/if}
 		</div>
@@ -209,7 +207,7 @@
 								{date}
 								<br />
 								<button
-									class="deleteCurrent"
+									class="delete-current"
 									data-id={id}
 									disabled={XBtnDisable}
 									on:click={(event) => deleteCurrent(event)}
@@ -233,14 +231,14 @@
 		--button-hover-color: rgb(190, 179, 179);
 		--p-color:#8ddde9;
 	}
-	.mainSpinner {
+	.main-spinner {
 		display: flex;
 		justify-content: center;
 	}
 	textarea {
 		resize: none;
 	}
-	.inputForm {
+	.input-form {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -253,7 +251,7 @@
 		display: flex;
 		flex-direction: column;
 	}
-	.controlPanel {
+	.control-panel {
 		min-height: 330px;
 		flex: 1;
 		justify-content: center;
@@ -267,7 +265,7 @@
 	ul {
 		padding-left: 0;
 	}
-	.deleteCurrent {
+	.delete-current {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -292,7 +290,7 @@
 		word-wrap: break-word;
 		padding: 15px 15px;
 	}
-	.buttonAddNote {
+	.button-add-note {
 		cursor: pointer;
 		background-color:var(--add-color) ;
 		border: 0px;
@@ -302,7 +300,7 @@
 		display: inline-block;
 		border-radius: 15px;
 	}
-	.buttonDeleteAll {
+	.button-delete-all {
 		cursor: pointer;
 		background-color: var(--delete-color);
 		border: 0px;
@@ -312,8 +310,8 @@
 		display: inline-block;
 		border-radius: 15px;
 	}
-	.buttonDeleteAll:hover,
-	.buttonAddNote:hover {
+	.button-delete-all:hover,
+	.button-add-note:hover {
 		background-color: var(--button-hover-color);
 	}
 	h1 {
