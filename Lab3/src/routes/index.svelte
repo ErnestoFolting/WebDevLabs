@@ -226,6 +226,13 @@
 </body>
 
 <style>
+	:root {
+		--delete-color: red;
+		--add-color:rgb(27, 185, 27);
+		--p-hover-color: rgba(104, 107, 107, 0.425);
+		--button-hover-color: rgb(190, 179, 179);
+		--p-color:#8ddde9;
+	}
 	.mainSpinner {
 		display: flex;
 		justify-content: center;
@@ -266,18 +273,18 @@
 		right: 0;
 		border: 0;
 		cursor: pointer;
-		background-color: rgba(230, 77, 77, 0.514);
+		background-color: var(--delete-color);
 		border-radius: 10px;
 	}
 	li p:hover {
-		background-color: rgba(104, 107, 107, 0.425);
+		background-color: var(--p-hover-color);
 	}
 	li {
 		list-style-type: none;
 	}
 	li p {
 		position: relative;
-		background-color: #8ddde9;
+		background-color: var(--p-color);
 		min-height: 50px;
 		max-width: 300px;
 		border-radius: 15px;
@@ -287,7 +294,7 @@
 	}
 	.buttonAddNote {
 		cursor: pointer;
-		background-color: rgb(27, 185, 27);
+		background-color:var(--add-color) ;
 		border: 0px;
 		width: 7em;
 		height: 3em;
@@ -297,7 +304,7 @@
 	}
 	.buttonDeleteAll {
 		cursor: pointer;
-		background-color: red;
+		background-color: var(--delete-color);
 		border: 0px;
 		width: 7em;
 		height: 3em;
@@ -307,7 +314,7 @@
 	}
 	.buttonDeleteAll:hover,
 	.buttonAddNote:hover {
-		background-color: rgb(190, 179, 179);
+		background-color: var(--button-hover-color);
 	}
 	h1 {
 		width: 100%;
