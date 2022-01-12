@@ -26,6 +26,7 @@
 	}
 
 	function errorHandle(errors) {
+		errors = [errors,errors];
 		if(Array.isArray(errors)) {
 			$msgCheck = `Error ${errors.map((error) => error?.message ?? '').join('.')}`;
 			errors.push(errors[0]);
