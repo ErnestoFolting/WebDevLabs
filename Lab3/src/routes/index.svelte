@@ -72,7 +72,6 @@
   `);
 	setClient(client);
 	const handleSubscription = (messages = [], data) => {
-		console.log([...data.notes]);
 		notes = data.notes;
 		resetStatus();
 		return [data.notes, ...messages];
@@ -84,7 +83,6 @@
 		showSpinner = XBtnDisable = true;
 
 		const { errors, data } = await doQuery('deleteCurrentNote', { _eq: _eq });
-		console.log(data);
 		if (errors) {
 			throw errors[0];
 		}
@@ -94,7 +92,6 @@
 	async function startExecuteMyMutation() {
 		showSpinner = XBtnDisable = true;
 		const { errors, data } = await doQuery('MyMutation');
-		console.log(data);
 		if (errors) {
 			throw errors[0];
 		}
@@ -118,7 +115,6 @@
 	async function startExecuteAddNote(author, date, text) {
 		showSpinner = XBtnDisable = true;
 		const { errors, data } = await doQuery('AddNote', { author: author, date: date, text: text });
-		console.log(data);
 		if (errors) {
 			throw errors[0];
 		}
@@ -187,7 +183,8 @@
 					<button class="button-delete-all" disabled={XBtnDisable} on:click={deleteAll}
 						>Delete all</button
 					>
-					<button class="button-add-note" disabled={XBtnDisable} on:click={addNote}>Add note</button>
+					<button class="button-add-note" disabled={XBtnDisable} on:click={addNote}>Add note</button
+					>
 				</div>
 			{/if}
 		</div>
@@ -226,10 +223,10 @@
 <style>
 	:root {
 		--delete-color: red;
-		--add-color:rgb(27, 185, 27);
+		--add-color: rgb(27, 185, 27);
 		--p-hover-color: rgba(104, 107, 107, 0.425);
 		--button-hover-color: rgb(190, 179, 179);
-		--p-color:#8ddde9;
+		--p-color: #8ddde9;
 	}
 	.main-spinner {
 		display: flex;
@@ -292,7 +289,7 @@
 	}
 	.button-add-note {
 		cursor: pointer;
-		background-color:var(--add-color) ;
+		background-color: var(--add-color);
 		border: 0px;
 		width: 7em;
 		height: 3em;
