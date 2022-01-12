@@ -27,7 +27,7 @@
 
 	function errorHandle(errors) {
 		if(Array.isArray(errors)) {
-			$msgCheck = `Server error ${errors.map((error) => error?.message ?? '').join(',')}`;
+			$msgCheck = `Server error ${errors.map((error) => error?.message ?? '').join('.')}`;
 			return;
 		}
 		if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
