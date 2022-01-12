@@ -75,13 +75,15 @@
 			placeholder="Input text"
 			required
 		/>
-		{#if showSpinner}
-			<Circle3 size="40" unit="px" duration="1s" />
-		{:else}
-			<button class="submitButton" type="submit" disabled={disableButton}>
-				<h4>SEND</h4>
-			</button>
-		{/if}
+		<div class="bottom">
+			{#if showSpinner}
+				<Circle3 size="40" unit="px" duration="1s" />
+			{:else}
+				<button class="submitButton" type="submit" disabled={disableButton}>
+					<h4>SEND</h4>
+				</button>
+			{/if}
+		</div>
 		{#if showSuccess}
 			<h3 class="successMessage">Successfully sent!</h3>
 		{:else if textInError != ''}
