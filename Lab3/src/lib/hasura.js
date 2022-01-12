@@ -16,7 +16,7 @@ async function fetchGraphQL(operationsDoc, operationName, variables) {
 }
 
 const operationsDoc = `
-query MyQuery {
+  query MyQuery {
     notes {
       author
       date
@@ -24,7 +24,7 @@ query MyQuery {
       id
     }
   }
-mutation MyMutation {
+  mutation MyMutation {
     delete_notes(where: {}) {
       affected_rows
     }
