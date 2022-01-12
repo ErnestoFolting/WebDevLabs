@@ -103,7 +103,9 @@
 	}
 
 	async function deleteAll() {
-		startExecuteMyMutation().catch(errorHandle).finally(resetStatus);
+		startExecuteMyMutation()
+			.catch(errorHandle)
+			.finally(resetStatus);
 	}
 
 	async function startFetchMyQuery() {
@@ -139,7 +141,9 @@
 
 	function deleteCurrent(event) {
 		let id = event.target.dataset.id;
-		startExecuteDeleteCurrentNote(id).catch(errorHandle).finally(resetStatus);
+		startExecuteDeleteCurrentNote(id)
+			.catch(errorHandle)
+			.finally(resetStatus);
 	}
 
 	onMount(async () => {
