@@ -26,13 +26,15 @@
 	}
 
 	function errorHandle(errors) {
+		if(Array.isArray(errors)){
+			$msgCheck = `Server error ${errors.map((error) => error?.message ?? '').join()}`;
+			return;
+		}
 		if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
 			$msgCheck = 'You make a lot of requests. Try later';
 			return;
 		}
-
 		$msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
-		return;
 	}
 
 	const wsClient = createWSClient({
@@ -86,7 +88,7 @@
 
 		const { errors, data } = await doQuery('deleteCurrentNote', { _eq: _eq });
 		if (errors) {
-			throw errors[0];
+			throw errors;
 		}
 		await startFetchMyQuery();
 	}
@@ -95,7 +97,7 @@
 		showSpinner = XBtnDisable = true;
 		const { errors, data } = await doQuery('MyMutation');
 		if (errors) {
-			throw errors[0];
+			throw errors;
 		}
 		await startFetchMyQuery();
 	}
@@ -111,7 +113,7 @@
 		errorOccured = false;
 		if (errors) {
 			errorOccured = true;
-			throw errors[0];
+			throw errors;
 		}
 		notes = data.notes;
 	}
@@ -120,7 +122,7 @@
 		showSpinner = XBtnDisable = true;
 		const { errors, data } = await doQuery('AddNote', { author: author, date: date, text: text });
 		if (errors) {
-			throw errors[0];
+			throw errors;
 		}
 		await startFetchMyQuery();
 	}
