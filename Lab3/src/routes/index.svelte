@@ -61,16 +61,18 @@
 	});
 
 	const messages = operationStore(`
-    subscription MySubscription {
-    notes {
-      author
-      date
-      id
-      text
-    }
-  }
-  `);
+    	subscription MySubscription {
+    		notes {
+      		author
+      		date
+      		id
+      		text
+    	}
+ 	}
+  	`);
+
 	setClient(client);
+	
 	const handleSubscription = (messages = [], data) => {
 		notes = data.notes;
 		resetStatus();
