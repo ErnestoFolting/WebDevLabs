@@ -148,8 +148,8 @@
 
 	onMount(async () => {
 		startFetchMyQuery()
-			.catch(() => {
-				errorHandle();
+			.catch((errors) => {
+				errorHandle(errors);
 				errorOccured = true;
 			})
 			.finally(resetStatus);
