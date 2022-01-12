@@ -27,14 +27,14 @@
 
 	function errorHandle(errors) {
 		if(Array.isArray(errors)) {
-			$msgCheck = `Server error ${errors.map((error) => error?.message ?? '').join('.')}`;
+			$msgCheck = `Error ${errors.map((error) => error?.message ?? '').join('.')}`;
 			return;
 		}
 		if (errors?.message === 'hasura cloud limit of 60 requests/minute exceeded') {
 			$msgCheck = 'You make a lot of requests. Try later';
 			return;
 		}
-		$msgCheck = `Server Error / No internet connection ${errors?.message ?? ''}`;
+		$msgCheck = `Error / No internet connection ${errors?.message ?? ''}`;
 	}
 
 	const wsClient = createWSClient({
