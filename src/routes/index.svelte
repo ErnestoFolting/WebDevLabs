@@ -42,6 +42,8 @@
 				textInError = 'Null message';
 			} else if (e.status === 429) {
 				textInError = 'You sent the form too many times';
+			} else {
+				textInError = 'Sorry. Error occured. You may have troubles with Internet.';
 			}
 		} finally {
 			showSpinner = false;
