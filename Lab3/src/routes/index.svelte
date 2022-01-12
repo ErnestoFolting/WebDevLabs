@@ -103,9 +103,7 @@
 	}
 
 	async function deleteAll() {
-		startExecuteMyMutation()
-			.catch(errorHandle)
-			.finally(resetStatus);
+		startExecuteMyMutation().catch(errorHandle).finally(resetStatus);
 	}
 
 	async function startFetchMyQuery() {
@@ -141,9 +139,7 @@
 
 	function deleteCurrent(event) {
 		let id = event.target.dataset.id;
-		startExecuteDeleteCurrentNote(id)
-			.catch(errorHandle)
-			.finally(resetStatus);
+		startExecuteDeleteCurrentNote(id).catch(errorHandle).finally(resetStatus);
 	}
 
 	onMount(async () => {
@@ -170,31 +166,31 @@
 				<div class="main-spinner">
 					<Circle3 size="40" unit="px" duration="1s" />
 				</div>
-			{:else}
-				<form class="input-form" bind:this={inputNote}>
-					<input
-						type="text"
-						bind:this={authorInput}
-						name="authorInput"
-						maxlength="25"
-						placeholder="Input your name"
-					/>
-					<textarea
-						name="text"
-						bind:this={textInput}
-						class="textInput"
-						maxlength="96"
-						placeholder="Input your note"
-					/>
-				</form>
-				<div class="buttons">
-					<button class="button-delete-all" disabled={XBtnDisable} on:click={deleteAll}
-						>Delete all</button
-					>
-					<button class="button-add-note" disabled={XBtnDisable} on:click={addNote}>Add note</button
-					>
-				</div>
 			{/if}
+			<form class="input-form" bind:this={inputNote}>
+				<input
+					type="text"
+					bind:this={authorInput}
+					name="authorInput"
+					maxlength="25"
+					placeholder="Input your name"
+					readonly={showSpinner}
+				/>
+				<textarea
+					name="text"
+					bind:this={textInput}
+					class="textInput"
+					maxlength="96"
+					placeholder="Input your note"
+					readonly={showSpinner}
+				/>
+			</form>
+			<div class="buttons">
+				<button class="button-delete-all" disabled={XBtnDisable} on:click={deleteAll}
+					>Delete all</button
+				>
+				<button class="button-add-note" disabled={XBtnDisable} on:click={addNote}>Add note</button>
+			</div>
 		</div>
 		<div class="notes">
 			{#if errorOccured === true}
@@ -237,8 +233,12 @@
 		--p-color: #8ddde9;
 	}
 	.main-spinner {
+		position: fixed;
+		top: 20%;
+		width: 100%;
 		display: flex;
 		justify-content: center;
+		z-index: 3;
 	}
 	textarea {
 		resize: none;
