@@ -126,14 +126,15 @@
 	}
 
 	function addNote() {
-		inputNote.reset();
 		if (authorInput.value.length >= 3 && textInput.value.length >= 3) {
 			startExecuteAddNote(authorInput.value, date, textInput.value)
 				.catch(errorHandle)
 				.finally(resetStatus);
+			inputNote.reset();
 			return;
 		}
 		$msgCheck = 'Input data into poles! At least 3 symbols.';
+		inputNote.reset();
 	}
 
 	function deleteCurrent(event) {
