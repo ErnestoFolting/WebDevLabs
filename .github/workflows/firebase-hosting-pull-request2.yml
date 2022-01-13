@@ -14,8 +14,10 @@ jobs:
           node-version: '16'
           cache: 'npm'
       - run: npm ci && npm run build
+        working-directory: Lab2
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KPI_WEB_LAB_2 }}'
           projectId: kpi-web-lab-2
+          entryPoint: ./Lab2

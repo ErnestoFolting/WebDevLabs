@@ -1,42 +1,53 @@
 {
-	"name": "lab2",
-	"version": "0.0.1",
-	"scripts": {
-		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
-		"preview": "svelte-kit preview",
-		"lint": "eslint --ignore-path .gitignore .",
-		"lint:fix": "eslint **/*.js --fix --ignore-path .gitignore",
-		"format": "prettier --check .  --ignore-path .gitignore  --plugin-search-dir=. .",
-		"format:fix": "prettier --write . --ignore-path .gitignore ",
-		"stylelint": "stylelint **/*.scss --allow-empty-input --ignore-path .gitignore",
-		"stylelint:fix": "stylelint **/*.scss --allow-empty-input --fix --ignore-path .gitignore"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-static": "next",
-		"@sveltejs/kit": "next",
-		"eslint": "^7.32.0",
-		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-prettier": "^4.0.0",
-		"eslint-plugin-sonarjs": "^0.10.0",
-		"eslint-plugin-svelte3": "^3.2.1",
-		"firebase-tools": "^9.21.0",
-		"prettier": "^2.4.1",
-		"prettier-plugin-svelte": "^2.4.0",
-		"sass": "^1.43.4",
-		"svelte": "^3.44.0",
-		"svelte-loading-spinners": "^0.1.7",
-		"svelte-preprocess": "^4.9.5",
-		"stylelint": "^14.0.1",
-		"stylelint-config-standard": "^23.0.0",
-		"stylelint-config-standard-scss": "^2.0.1"
-	},
-	"type": "module",
-	"dependencies": {
-		"@fontsource/fira-mono": "^4.5.0",
-		"@lukeed/uuid": "^2.0.0",
-		"body-parser": "^1.19.0",
-		"cookie": "^0.4.1",
-		"firebase-admin": "^9.8.0"
-	}
+  "name": "lab_1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@nodeart/eslint-plugin": "^1.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-sonarjs": "^0.10.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
+    "lite-server": "^2.6.1",
+    "prettier": "2.4.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add "
+    ],
+    "*.css": [
+      "npm run lintcss",
+      "git add "
+    ],
+    "*html": [
+      "npm run prettiercheck",
+      "git add "
+    ]
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "eslint **/*.js --no-error-on-unmatched-pattern --ignore-path .gitignore",
+    "lint:fix": "eslint **/*.js  --fix --ignore-path .gitignore",
+    "lintcss": "stylelint **/*.css --ignore-path .gitignore",
+    "lintcss:fix": "stylelint **/*.css  --fix --ignore-path .gitignore",
+    "prettiercheck": "prettier **/*.html --check . --ignore-path .gitignore",
+    "prettier:fix": "prettier **/*.html --write . --ignore-path .gitignore",
+    "start": "lite-server"
+  },
+  "author": "",
+  "license": "ISC"
 }
