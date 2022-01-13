@@ -143,6 +143,7 @@
 	}
 
 	onMount(async () => {
+		XBtnDisable = true;
 		startFetchMyQuery()
 			.catch((errors) => {
 				errorHandle(errors);
