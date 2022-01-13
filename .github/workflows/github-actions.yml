@@ -1,5 +1,8 @@
-name: Format check
-on: [pull_request]
+name: Format checking
+on:
+  pull_request:
+    branches:
+      - lab1
 jobs:
   build_and_preview:
     runs-on: ubuntu-latest
