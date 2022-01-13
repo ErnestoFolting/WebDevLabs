@@ -1,0 +1,149 @@
+:root {
+  --fs-base: 14px;
+  --clr-footer: rgb(195, 233, 124);
+  --clr-footer-text: rgb(37, 173, 173);
+  --clr-box3: rgb(117, 43, 236);
+  --clr-container2: rgb(0, 0, 0);
+  --clr-box4-box2: rgb(241, 207, 134);
+  --clr-box5: rgb(108, 193, 214);
+  --clr-header-back: rgb(153, 152, 255);
+  --clr-nav: rgb(241, 207, 134);
+  --clr-header-link: rgb(241, 121, 145);
+  --clr-signboxcontent: rgb(255, 255, 255);
+  --clr-headersignbox: rgb(195, 233, 124);
+  --margin-base: 0;
+  --padding-base: 0;
+}
+
+* {
+  margin: var(--margin-base);
+  padding: var(--padding-base);
+  font-size: var(--fs-base);
+}
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 4;
+  background-color: var(--clr-header-link);
+}
+
+main {
+  display: flex;
+  flex: 5;
+}
+
+main div {
+  margin: var(--margin-base);
+  padding: var(--padding-base);
+}
+
+.box3 {
+  background-color: var(--clr-box3);
+  flex: 1;
+}
+
+.box4,
+.box2 {
+  background-color: var(--clr-box4-box2);
+  flex: 1;
+}
+
+.box4 {
+  text-align: center;
+}
+
+.subbox35 {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+footer div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 4;
+  background-color: var(--clr-footer-text);
+}
+
+.subbox35 div {
+  margin: var(--margin-base);
+  padding: var(--padding-base);
+  text-align: center;
+}
+
+.box5 {
+  background-color: var(--clr-box5);
+  flex: 5;
+  position: relative;
+  text-align: center;
+  max-height: 1000px;
+}
+
+header {
+  flex: 1;
+  position: relative;
+  text-align: left;
+  background-color: var(--clr-header-back);
+  display: flex;
+}
+
+nav {
+  background-color: var(--clr-nav);
+  font-size: 1.5vw;
+  text-align: center;
+  height: 100%;
+}
+
+li {
+  list-style-position: inside;
+}
+
+div > h3 {
+  margin-top: 0.5%;
+}
+
+#socialImg {
+  display: block;
+  margin: auto;
+  width: 80%;
+  max-width: 600px;
+  max-height: 300px;
+  height: auto;
+}
+
+header h1 {
+  flex: 1;
+  height: 100%;
+  background-color: var(--clr-headersignbox);
+  font-size: 1.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  position: relative;
+  display: flex;
+  background-color: var(--clr-footer);
+  flex: 1;
+}
+
+footer h1 {
+  flex: 1;
+  height: 100%;
+  background-color: var(--clr-footer);
+  font-size: 1.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
