@@ -1,38 +1,53 @@
 {
-	"name": "lab4",
-	"version": "0.0.1",
-	"scripts": {
-		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-		"lint:fix": "eslint **/*.js --fix --ignore-path .gitignore",
-		"format": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
-		"format:fix": "prettier --ignore-path .gitignore --write .",
-		"style": "stylelint **/*.css --allow-empty-input --ignore-path .gitignore",
-		"style:fix": "stylelint **/*.css --allow-empty-input --ignore-path .gitignore --fix",
-		"prepare": "husky install"
-	},
-	"devDependencies": {
-		"eslint": "^7.32.0",
-		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-prettier": "^4.0.0",
-		"eslint-plugin-sonarjs": "^0.11.0",
-		"eslint-plugin-svelte3": "^3.2.1",
-		"husky": "^7.0.4",
-		"lint-staged": "^12.1.2",
-		"prettier": "^2.4.1",
-		"stylelint": "^13.13.1",
-		"stylelint-config-prettier": "^9.0.3",
-		"stylelint-config-standard": "^22.0.0"
-	},
-	"type": "module",
-	"lint-staged": {
-		"*.{js,ts,html}": [
-			"prettier --check . --ignore-path .gitignore"
-		],
-		"*.{js,ts}": [
-			"eslint **/*.js --no-error-on-unmatched-pattern --ignore-path .gitignore"
-		],
-		"*.css": [
-			"stylelint **/*.css --allow-empty-input --ignore-path .gitignore"
-		]
-	}
+  "name": "lab_1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@nodeart/eslint-plugin": "^1.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-sonarjs": "^0.10.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
+    "lite-server": "^2.6.1",
+    "prettier": "2.4.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add "
+    ],
+    "*.css": [
+      "npm run lintcss",
+      "git add "
+    ],
+    "*html": [
+      "npm run prettiercheck",
+      "git add "
+    ]
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "eslint **/*.js --no-error-on-unmatched-pattern --ignore-path .gitignore",
+    "lint:fix": "eslint **/*.js  --fix --ignore-path .gitignore",
+    "lintcss": "stylelint **/*.css --ignore-path .gitignore",
+    "lintcss:fix": "stylelint **/*.css  --fix --ignore-path .gitignore",
+    "prettiercheck": "prettier **/*.html --check . --ignore-path .gitignore",
+    "prettier:fix": "prettier **/*.html --write . --ignore-path .gitignore",
+    "start": "lite-server"
+  },
+  "author": "",
+  "license": "ISC"
 }
